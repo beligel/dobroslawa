@@ -1,0 +1,122 @@
+{% extends "admin/change_list.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Графики над таблицей -->
+{% if chart_data %}
+<div style="background:white;padding:20px;border-radius:12px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
+    <h2 style="margin:0 0 20px;font-size:1.2rem;color:#2c3e50">📊 Аналитика бронирований</h2>
+    
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        <!-- График бронирований по месяцам -->
+        <div style="background:#f8f9fa;padding:15px;border-radius:8px">
+            <h3 style="margin:0 0 15px;font-size:1rem;color:#2c3e50">Бронирования по месяцам</h3>
+            <canvas id="bookingsChart" height="200"></canvas>
+        </div>
+        
+        <!-- График доходов -->
+        <div style="background:#f8f9fa;padding:15px;border-radius:8px">
+            <h3 style="margin:0 0 15px;font-size:1rem;color:#2c3e50">Выручка по месяцам (₽)</h3>
+            <canvas id="revenueChart" height="200"></canvas>
+        </div>
+        
+        <!-- Круговая диаграмма статусов -->
+        <div style="background:#f8f9fa;padding:15px;border-radius:8px">
+            <h3 style="margin:0 0 15px;font-size:1rem;color:#2c3e50">Статусы бронирований</h3>
+            <canvas id="statusChart" height="200"></canvas>
+        </div>
+        
+        <!-- Быстрые цифры -->
+        <div style="background:#f8f9fa;padding:15px;border-radius:8px;display:grid;grid-template-columns:1fr 1fr;gap:15px;align-content:start">
+            <div style="background:linear-gradient(135deg,#3498db,#2980b9);padding:20px;border-radius:8px;color:white;text-align:center">
+                <div style="font-size:2rem;font-weight:bold">{{ cl.result_count }}</div>
+                <div style="font-size:0.9rem;opacity:0.9">Всего бронирований</div>
+            </div>
+            <div style="background:linear-gradient(135deg,#2ecc71,#27ae60);padding:20px;border-radius:8px;color:white;text-align:center">
+                <div style="font-size:2rem;font-weight:bold">{% if stats %}{{ stats.revenue|default:0|floatformat:0 }}{% else %}0{% endif %} ₽</div>
+                <div style="font-size:0.9rem;opacity:0.9">Общая выручка</div>
+            </div>
+            
+            <div style="background:linear-gradient(135deg,#e67e22,#d35400);padding:20px;border-radius:8px;color:white;text-align:center">
+                <div style="font-size:2rem;font-weight:bold">{% if stats %}{{ stats.pending|default:0 }}{% else %}0{% endif %}</div>
+                <div style="font-size:0.9rem;opacity:0.9">Ожидают подтверждения</div>
+            </div>
+            
+            <div style="background:linear-gradient(135deg,#9b59b6,#8e44ad);padding:20px;border-radius:8px;color:white;text-align:center">
+                <div style="font-size:2rem;font-weight:bold">{% if stats %}{{ stats.confirmed|default:0 }}{% else %}0{% endif %}</div>
+                <div style="font-size:0.9rem;opacity:0.9">Подтверждено</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    {% if chart_data %}
+    // График бронирований
+    new Chart(document.getElementById('bookingsChart'), {
+        type: 'bar',
+        data: {
+            labels: {{ chart_data.months|safe }},
+            datasets: [{
+                label: 'Бронирования',
+                data: {{ chart_data.bookings|safe }},
+                backgroundColor: '#3498db',
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true } }
+        }
+    });
+    
+    // График выручки
+    new Chart(document.getElementById('revenueChart'), {
+        type: 'line',
+        data: {
+            labels: {{ chart_data.months|safe }},
+            datasets: [{
+                label: 'Выручка (₽)',
+                data: {{ chart_data.revenue|safe }},
+                borderColor: '#2ecc71',
+                backgroundColor: 'rgba(46, 204, 113, 0.1)',
+                fill: true,
+                tension: 0.4,
+                pointRadius: 4,
+                pointBackgroundColor: '#2ecc71'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true } }
+        }
+    });
+    
+    // Круговая диаграмма статусов
+    new Chart(document.getElementById('statusChart'), {
+        type: 'doughnut',
+        data: {
+            labels: {{ chart_data.status_labels|safe }},
+            datasets: [{
+                data: {{ chart_data.status_values|safe }},
+                backgroundColor: {{ chart_data.status_colors|safe }},
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'bottom', labels: { boxWidth: 12 } }
+            }
+        }
+    });
+    {% endif %}
+</script>
+{% endif %}
+
+{{ block.super }}
+
+{% endblock %}

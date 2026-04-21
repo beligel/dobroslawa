@@ -1,0 +1,404 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans 'About Us' %}{% endblock %}
+
+{% block meta_description %}{% trans 'Guest house Dobroslawa in Rostov-on-Don since 2012. Cozy rooms, historic location, family hospitality.' %}{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="page-hero">
+    <div class="page-hero-content">
+        <span class="page-badge">{% trans 'Since 2012' %}</span>
+        <h1 class="page-title">{% trans 'About Dobroslawa' %}</h1>
+        <p class="page-subtitle">{% trans 'Where history meets hospitality' %}</p>
+    </div>
+</section>
+
+<!-- Story Section -->
+<section class="section">
+    <div class="container">
+        <div class="story-grid">
+            <div class="story-image">
+                <div class="image-frame">
+                    <div class="image-placeholder">
+                        <span>🏛️</span>
+                        <p>{% trans 'Historic building' %}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="story-content">
+                <h2>{% trans 'Our Story' %}</h2>
+                <p class="lead">
+                    {% trans 'Founded in 2012, Dobroslawa Guest House has been welcoming travelers from all over the world for over 13 years. We transformed a historic early 20th-century mansion into a cozy home away from home for our guests.' %}
+                </p>
+                <p>
+                    {% trans 'Located in the heart of Rostov-on-Don, just steps from the main attractions, theaters, and restaurants, our house offers the perfect combination of comfort, privacy, and authentic Southern Russian hospitality.' %}
+                </p>
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <span class="stat-number">13+</span>
+                        <span class="stat-label">{% trans 'Years of service' %}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5000+</span>
+                        <span class="stat-label">{% trans 'Happy guests' %}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">4.8</span>
+                        <span class="stat-label">{% trans 'Average rating' %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="section section-tinted">
+    <div class="container">
+        <div class="section-header">
+            <h2>{% trans 'Our Values' %}</h2>
+            <p class="section-subtitle">{% trans 'What makes us special' %}</p>
+        </div>
+        
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">✨</div>
+                <h3>{% trans 'Cleanliness Above All' %}</h3>
+                <p>{% trans 'We maintain the highest standards of cleanliness. Every room is thoroughly cleaned and sanitized daily.' %}</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">🏠</div>
+                <h3>{% trans 'Home Comfort' %}</h3>
+                <p>{% trans 'We create a warm, welcoming atmosphere where you feel at home, whether staying for a night or a month.' %}</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">🔒</div>
+                <h3>{% trans 'Privacy & Safety' %}</h3>
+                <p>{% trans 'Your privacy is paramount. Secure entry, individual keys, and a safe environment guaranteed.' %}</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">🌿</div>
+                <h3>{% trans 'Eco-Friendly' %}</h3>
+                <p>{% trans 'We use eco-friendly cleaning products, recycling, and energy-efficient appliances to minimize our footprint.' %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Location -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2>{% trans 'Perfect Location' %}</h2>
+        </div>
+        
+        <div class="location-grid">
+            <div class="location-info">
+                <h3>{% trans 'In the Heart of the City' %}</h3>
+                <ul class="location-list">
+                    <li>
+                        <span class="icon">🎭</span>
+                        <span>{% trans '5 min walk to Drama Theater' %}</span>
+                    </li>
+                    <li>
+                        <span class="icon">🎨</span>
+                        <span>{% trans '10 min to Pushkin Street' %}</span>
+                    </li>
+                    <li>
+                        <span class="icon">🍽️</span>
+                        <span>{% trans 'Restaurants & cafes nearby' %}</span>
+                    </li>
+                    <li>
+                        <span class="icon">🚉</span>
+                        <span>{% trans '15 min to Railway Station' %}</span>
+                    </li>
+                    <li>
+                        <span class="icon">✈️</span>
+                        <span>{% trans '40 min to Airport' %}</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="location-map">
+                <div class="map-placeholder">
+                    <span>🗺️</span>
+                    <p>{% trans 'Interactive map will be displayed here' %}</p>
+                    <a href="https://maps.yandex.ru" target="_blank" class="btn-outline">{% trans 'Open in Maps' %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="section section-cta">
+    <div class="container">
+        <div class="cta-box">
+            <h2>{% trans 'Ready to experience Dobroslawa?' %}</h2>
+            <p>{% trans 'Book your stay now and feel the difference' %}</p>
+            <a href="{% url 'bookings:booking_create' %}" class="btn-primary btn-large">{% trans 'Book a Room' %}</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Page Hero */
+.page-hero {
+    background: linear-gradient(135deg, var(--color-primary), #34495e);
+    color: white;
+    padding: 10rem 2rem 6rem;
+    text-align: center;
+}
+
+.page-badge {
+    display: inline-block;
+    background: var(--color-accent);
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+}
+
+.page-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.page-subtitle {
+    font-size: 1.5rem;
+    opacity: 0.9;
+}
+
+/* Story Section */
+.story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.story-image {
+    position: relative;
+}
+
+.image-frame {
+    position: relative;
+}
+
+.image-frame::before {
+    content: '';
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    right: -1rem;
+    bottom: -1rem;
+    border: 3px solid var(--color-accent);
+    border-radius: 12px;
+    z-index: 0;
+}
+
+.image-placeholder {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    aspect-ratio: 4/3;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: relative;
+    z-index: 1;
+}
+
+.image-placeholder span {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.story-content h2 {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+}
+
+.lead {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+}
+
+.story-content p {
+    color: var(--color-text-muted);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+/* Stats */
+.stats-row {
+    display: flex;
+    gap: 3rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid rgba(0,0,0,0.05);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
+}
+
+/* Values */
+.section-tinted {
+    background: rgba(44, 62, 80, 0.03);
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.value-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.value-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.value-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.value-card h3 {
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+}
+
+.value-card p {
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+}
+
+/* Location */
+.location-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.location-info h3 {
+    font-size: 1.75rem;
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+}
+
+.location-list {
+    list-style: none;
+    padding: 0;
+}
+
+.location-list li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-size: 1.125rem;
+}
+
+.location-list .icon {
+    font-size: 1.5rem;
+    width: 40px;
+    text-align: center;
+}
+
+.map-placeholder {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    aspect-ratio: 4/3;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+.map-placeholder span {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.map-placeholder p {
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .story-grid,
+    .location-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .story-image {
+        order: -1;
+    }
+    
+    .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .values-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-row {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .page-hero {
+        padding: 8rem 1.5rem 4rem;
+    }
+}
+</style>
+{% endblock %}

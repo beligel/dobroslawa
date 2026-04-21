@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans 'Booking Confirmed' %}{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 6rem auto 4rem; padding: 0 2rem; text-align: center;">
+    <h1>✅ {% trans 'Thank you!' %}</h1>
+    
+    <p>{% trans 'Your booking request has been submitted successfully. We will contact you within 24 hours.' %}</p>
+    
+    
+    <a href="{% url 'pages:home' %}" style="display: inline-block; margin-top: 2rem; background: var(--color-accent); color: white; padding: 1rem 2rem; border-radius: 8px; text-decoration: none;">{% trans 'Back to Home' %}</a>
+</div>
+{% endblock %}

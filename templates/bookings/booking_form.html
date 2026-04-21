@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans 'Book a Room' %}{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 6rem auto 4rem; padding: 0 2rem;">
+    <h1>{% trans 'Book a Room' %}</h1>
+    
+    <form method="post" style="background: white; padding: 2rem; border-radius: 12px; margin-top: 2rem;">
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+        <button type="submit" class="btn-primary">{% trans 'Submit Booking' %}</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .btn-primary { background: var(--color-accent); color: white; border: none; padding: 0.875rem 2rem; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; }
+    form p { margin-bottom: 1rem; }
+</style>
+{% endblock %}

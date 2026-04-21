@@ -1,0 +1,96 @@
+# Apache .htaccess для dobroslawa.ru
+# Разместить в корне сайта
+
+# Включить rewrite engine
+RewriteEngine On
+
+# Redirect www to non-www (или наоборот — выберите один вариант)
+# Вариант 1: www → без www
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# Redirect HTTP to HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# SEO: Redirect old Django URLs to new anchors
+RewriteRule ^rooms/([0-9]+)/?$ /index.html#rooms [R=301,L]
+RewriteRule ^booking/?$ /index.html [R=301,L]
+RewriteRule ^about/?$ /index.html [R=301,L]
+RewriteRule ^contacts/?$ /index.html#contacts [R=301,L]
+
+# Если файл/папка не существует, отдаем index.html (SPA mode)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [QSA,L]
+
+# Security headers
+<IfModule mod_headers.c>
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    # CSP — настройте под свои нужды
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com;"
+</IfModule>
+
+# Caching for static assets
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+    
+    # Images
+    ExpiresByType image/jpeg "access plus 6 months"
+    ExpiresByType image/png "access plus 6 months"
+    ExpiresByType image/gif "access plus 6 months"
+    ExpiresByType image/webp "access plus 6 months"
+    ExpiresByType image/svg+xml "access plus 6 months"
+    ExpiresByType image/x-icon "access plus 1 year"
+    
+    # CSS and JavaScript
+    ExpiresByType text/css "access plus 6 months"
+    ExpiresByType application/javascript "access plus 6 months"
+    ExpiresByType application/x-javascript "access plus 6 months"
+    
+    # Fonts
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/x-font-woff "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+</IfModule>
+
+# GZIP compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+    AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+    AddOutputFilterByType DEFLATE text/javascript application/json
+    AddOutputFilterByType DEFLATE image/svg+xml application/vnd.ms-fontobject
+    
+    # Исключения (нельзя сжимать изображения)
+    SetEnvIfNoCase Request_URI \\.(?:gif|jpe?g|png|webp|ico|zip)$ no-gzip dont-vary
+</IfModule>
+
+# Security: Deny access to sensitive files
+<FilesMatch "^(\.htaccess|\.htpasswd|\.env|\.gitignore|package\.json|package-lock\.json)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Deny access to hidden files (starting with dot)
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Deny access to folders
+RewriteRule ^(\.git|\.svn|\.ht) - [F,L]
+
+# Custom error documents
+ErrorDocument 404 /index.html
+ErrorDocument 500 /50x.html
+
+# Charset
+AddDefaultCharset UTF-8
+
+# RewriteBase (раскомментируйте если сайт в подпапке)
+# RewriteBase /

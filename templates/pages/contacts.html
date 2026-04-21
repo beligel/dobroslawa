@@ -1,0 +1,460 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans 'Contact Us' %}{% endblock %}
+
+{% block meta_description %}{% trans 'Contact Dobroslawa Guest House in Rostov-on-Don. Phone, WhatsApp, email, and location.' %}{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="page-hero">
+    <div class="page-hero-content">
+        <h1 class="page-title">{% trans 'Get in Touch' %}</h1>
+        <p class="page-subtitle">{% trans 'We are here to help you 24/7' %}</p>
+    </div>
+</section>
+
+<!-- Contact Cards -->
+<section class="section">
+    <div class="container">
+        <div class="contact-grid">
+            <!-- Phone -->
+            <a href="tel:{{ settings.phone|default:'+79990000000' }}" class="contact-card contact-card-highlight">
+                <div class="contact-icon">📞</div>
+                <h3>{% trans 'Phone' %}</h3>
+                <p class="contact-value">{{ settings.phone|default:'+7 (999) 000-00-00' }}</p>
+                <span class="contact-note">{% trans 'Available 24/7' %}</span>
+            </a>
+            
+            <!-- WhatsApp -->
+            <a href="https://wa.me/{{ settings.whatsapp|default:'79990000000' }}" target="_blank" class="contact-card">
+                <div class="contact-icon contact-whatsapp">💬</div>
+                <h3>WhatsApp</h3>
+                <p class="contact-value">{% trans 'Chat with us' %}</p>
+                <span class="contact-note">{% trans 'Usually replies in 5 min' %}</span>
+            </a>
+            
+            <!-- Email -->
+            <a href="mailto:{{ settings.email|default:'info@dobroslawa.ru' }}" class="contact-card">
+                <div class="contact-icon">✉️</div>
+                <h3>Email</h3>
+                <p class="contact-value">{{ settings.email|default:'info@dobroslawa.ru' }}</p>
+                <span class="contact-note">{% trans 'For booking & questions' %}</span>
+            </a>
+            
+            <!-- Address -->
+            <div class="contact-card">
+                <div class="contact-icon">📍</div>
+                <h3>{% trans 'Address' %}</h3>
+                <p class="contact-value">{{ settings.address|default:'10 Pushkin Street, Rostov-on-Don' }}</p>
+                <span class="contact-note">{% trans 'Central location' %}</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map + Form -->
+<section class="section section-tinted">
+    <div class="container">
+        <div class="two-column-layout">
+            <!-- Quick Message Form -->
+            <div class="message-form-column">
+                <h2>{% trans 'Send us a message' %}</h2>
+                <form class="contact-form" action="#" method="post">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="name">{% trans 'Your Name' %}</label>
+                        
+                        <input type="text" id="name" name="name" class="form-control" placeholder="{% trans 'John Smith' %}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        
+                        <input type="email" id="email" name="email" class="form-control" placeholder="john@example.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">{% trans 'Subject' %}</label>
+                        
+                        <select id="subject" name="subject" class="form-control">
+                            <option value="booking">{% trans 'Room Booking' %}</option>
+                            <option value="question">{% trans 'Question' %}</option>
+                            <option value="review">{% trans 'Leave a Review' %}</option>
+                            <option value="other">{% trans 'Other' %}</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">{% trans 'Message' %}</label>
+                        
+                        <textarea id="message" name="message" class="form-control" rows="4" placeholder="{% trans 'How can we help you?' %}" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary btn-full">
+                        {% trans 'Send Message' %} →
+                    </button>
+                
+</form>
+            
+            </div>
+            
+            <!-- Map -->
+            <div class="map-column">
+                <h2>{% trans 'Find us on the map' %}</h2>
+                <div class="map-container">
+                    <div class="map-embed">
+                        <!-- Здесь можно вставить iframe Яндекс.Карт или Google Maps -->
+                        <div class="map-placeholder">
+                            <span>🗺️</span>
+                            <p>{{ settings.address|default:'Rostov-on-Don' }}</p>
+                            <a href="https://maps.yandex.ru" target="_blank" class="btn-outline">
+                                {% trans 'Open in Maps' %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="visit-info">
+                    <h4>{% trans 'Reception Hours' %}</h4>
+                    <ul class="hours-list">
+                        <li>
+                            <span>{% trans 'Check-in' %}</span>
+                            <span>14:00 – 00:00</span>
+                        </li>
+                        <li>
+                            <span>{% trans 'Check-out' %}</span>
+                            <span>{% trans 'until' %} 12:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick CTA -->
+<section class="section">
+    <div class="container">
+        <div class="quick-book-box">
+            <div class="quick-book-content">
+                <h3>{% trans 'Ready to book?' %}</h3>
+                <p>{% trans 'Best price guaranteed when booking directly' %}</p>
+            </div>
+            
+            <a href="{% url 'bookings:booking_create' %}" class="btn-primary btn-large">
+                {% trans 'Book Now' %}
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Page Hero */
+.page-hero {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #2980b9 100%);
+    color: white;
+    padding: 10rem 2rem 6rem;
+    text-align: center;
+}
+
+.page-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.page-subtitle {
+    font-size: 1.5rem;
+    opacity: 0.9;
+}
+
+/* Contact Grid */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: -3rem;
+    position: relative;
+    z-index: 10;
+}
+
+.contact-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--color-text);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+
+.contact-card-highlight {
+    border: 2px solid var(--color-accent);
+}
+
+.contact-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.contact-card h3 {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+}
+
+.contact-value {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+}
+
+.contact-card:hover .contact-value {
+    color: var(--color-accent);
+}
+
+.contact-note {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+}
+
+.contact-whatsapp {
+    color: #25D366;
+}
+
+/* Two Column Layout */
+.section-tinted {
+    background: rgba(44, 62, 80, 0.03);
+}
+
+.two-column-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.two-column-layout h2 {
+    font-size: 1.75rem;
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+}
+
+/* Contact Form */
+.contact-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+}
+
+.contact-form .form-group {
+    margin-bottom: 1.25rem;
+}
+
+.contact-form label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+}
+
+.contact-form .form-control {
+    width: 100%;
+    padding: 0.875rem;
+    border: 2px solid #E5E7EB;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+.contact-form .form-control:focus {
+    outline: none;
+    border-color: var(--color-accent);
+}
+
+.btn-full {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+/* Map */
+.map-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.map-container {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1.5rem;
+}
+
+.map-embed {
+    aspect-ratio: 4/3;
+}
+
+.map-embed iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.map-placeholder {
+    height: 100%;
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+.map-placeholder span {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.map-placeholder p {
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+}
+
+/* Visit Info */
+.visit-info {
+    background: white;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+}
+
+.visit-info h4 {
+    font-size: 1rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.hours-list {
+    list-style: none;
+    padding: 0;
+}
+
+.hours-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-size: 0.9375rem;
+}
+
+.hours-list li:last-child {
+    border-bottom: none;
+}
+
+.hours-list span:first-child {
+    color: var(--color-text-muted);
+}
+
+.hours-list span:last-child {
+    font-weight: 500;
+}
+
+/* Quick Book */
+.quick-book-box {
+    background: linear-gradient(135deg, var(--color-accent) 0%, #d35400 100%);
+    color: white;
+    padding: 3rem;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.quick-book-content h3 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.quick-book-content p {
+    opacity: 0.9;
+}
+
+.quick-book-box .btn-primary {
+    background: white;
+    color: var(--color-accent);
+    flex-shrink: 0;
+}
+
+.quick-book-box .btn-primary:hover {
+    background: var(--color-bg);
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .contact-grid {
+        grid-template-columns: repeat(2, 1fr);
+        margin-top: -2rem;
+    }
+    
+    .two-column-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-book-box {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 640px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        margin-top: 0;
+    }
+    
+    .contact-card {
+        flex-direction: row;
+        text-align: left;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .contact-icon {
+        margin: 0;
+        font-size: 2rem;
+    }
+    
+    .contact-card h3 {
+        margin: 0;
+    }
+    
+    .page-hero {
+        padding: 8rem 1.5rem 4rem;
+    }
+}
+</style>
+{% endblock %}

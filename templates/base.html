@@ -1,0 +1,150 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}{% trans 'Guest house Dobroslawa in Rostov-on-Don. Cozy rooms, free Wi-Fi, breakfast included.' %}{% endblock %}">
+    
+    <title>{% block title %}{% endblock %} | {% trans 'Dobroslawa' %}</title>
+    
+    <style>
+        :root {
+            --color-primary: #2C3E50;
+            --color-accent: #E67E22;
+            --color-bg: #FDFCF8;
+            --color-surface: #FFFFFF;
+            --color-text: #2C3E50;
+            --color-text-muted: #7F8C8D;
+            --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --radius: 12px;
+            --max-width: 1200px;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+        body { background: var(--color-bg); color: var(--color-text); line-height: 1.6; overflow-x: hidden; }
+        
+        /* Header */
+        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(253, 252, 248, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); z-index: 1000; }
+        nav { max-width: var(--max-width); margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--color-primary); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+        .logo::before { content: "⌂"; color: var(--color-accent); font-size: 1.8rem; }
+        
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--color-text); font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--color-accent); }
+        .nav-links a.active { color: var(--color-accent); }
+        
+        .lang-switcher { display: flex; gap: 0.5rem; align-items: center; }
+        .lang-switcher form { display: inline; }
+        .lang-switcher button {
+            background: none; border: none; cursor: pointer; font-size: 0.875rem;
+            font-weight: 500; color: var(--color-text-muted); padding: 0.25rem 0.5rem;
+            border-radius: 4px; transition: all 0.2s;
+        }
+        .lang-switcher button.active { background: var(--color-primary); color: white; }
+        .lang-switcher button:hover:not(.active) { background: rgba(0,0,0,0.05); }
+        
+        .phone-btn { background: var(--color-accent); color: white; padding: 0.75rem 1.5rem; border-radius: var(--radius); text-decoration: none; font-weight: 600; transition: transform 0.2s, box-shadow 0.2s; }
+        .phone-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        
+        /* Messages */
+        .messages { max-width: var(--max-width); margin: 6rem auto 2rem; padding: 0 2rem; }
+        .alert { padding: 1rem; border-radius: var(--radius); margin-bottom: 1rem; }
+        .alert-success { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
+        .alert-error { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
+        
+        /* Footer */
+        footer { background: var(--color-primary); color: white; padding: 4rem 2rem 2rem; margin-top: 4rem; }
+        .footer-content { max-width: var(--max-width); margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; }
+        .footer-section h4 { margin-bottom: 1.5rem; color: var(--color-accent); }
+        .footer-section a { color: rgba(255,255,255,0.8); text-decoration: none; display: block; margin-bottom: 0.75rem; transition: color 0.2s; }
+        .footer-section a:hover { color: white; }
+        .footer-bottom { max-width: var(--max-width); margin: 3rem auto 0; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; color: rgba(255,255,255,0.6); font-size: 0.875rem; }
+        
+        /* Forms */
+        .form-control {
+            width: 100%; padding: 0.875rem; border: 2px solid #E5E7EB; border-radius: 8px;
+            font-size: 1rem; transition: border-color 0.2s; font-family: inherit;
+        }
+        .form-control:focus { outline: none; border-color: var(--color-accent); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--color-primary); }
+        .form-error { color: #e74c3c; font-size: 0.875rem; margin-top: 0.25rem; }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'pages:home' %}" class="logo">{% trans 'Dobroslawa' %}</a>
+            
+            <ul class="nav-links">
+                <li><a href="{% url 'pages:about' %}"{% if request.resolver_match.url_name == 'about' %} class="active"{% endif %}>{% trans 'About' %}</a></li>
+                <li><a href="{% url 'rooms:room_list' %}"{% if request.resolver_match.url_name == 'room_list' %} class="active"{% endif %}>{% trans 'Rooms' %}</a></li>
+                <li><a href="{% url 'pages:contacts' %}"{% if request.resolver_match.url_name == 'contacts' %} class="active"{% endif %}>{% trans 'Contacts' %}</a></li>
+                <li class="lang-switcher">
+                    <form action="{% url 'set_language' %}" method="post">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ request.path }}">
+                        <button type="submit" name="language" value="ru"{% if LANGUAGE_CODE == 'ru' %} class="active"{% endif %}>RU</button>
+                        <button type="submit" name="language" value="en"{% if LANGUAGE_CODE == 'en' %} class="active"{% endif %}>EN</button>
+                        <button type="submit" name="language" value="zh-hans"{% if LANGUAGE_CODE == 'zh-hans' %} class="active"{% endif %}>CN</button>
+                    </form>
+                </li>
+            </ul>
+            
+            <a href="tel:{{ settings.phone|default:'+79990000000' }}" class="phone-btn">{% trans 'Book now' %}</a>
+        </nav>
+    </header>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>{% trans 'Dobroslawa' %}</h4>
+                <p style="color: rgba(255,255,255,0.8); line-height: 1.8;">
+                    {% trans 'Guest house in the center of Rostov-on-Don. Cozy, clean, home-like.' %}
+                </p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>{% trans 'Contacts' %}</h4>
+                <a href="tel:{{ settings.phone|default:'+79990000000' }}">{{ settings.phone|default:'+7 (999) 000-00-00' }}</a>
+                <a href="mailto:{{ settings.email|default:'info@dobroslawa.ru' }}">{{ settings.email|default:'info@dobroslawa.ru' }}</a>
+                <p style="color: rgba(255,255,255,0.6); margin-top: 1rem;">{{ settings.address|default:'ул. Пушкина, 10' }}</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>{% trans 'Legal' %}</h4>
+                <a href="#">{% trans 'Privacy Policy' %}</a>
+                <a href="#">{% trans 'Terms of Service' %}</a>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            {{ settings.copyright|default:'© 2025 Доброславия' }}
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

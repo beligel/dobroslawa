@@ -1,0 +1,13 @@
+{% extends "admin/login.html" %}
+{% block branding %}
+<h1 id="site-name">Вход в панель управления</h1>
+<p style="color:#999;font-size:0.85rem;margin-top:5px;">Гостевой дом «Доброславия» — авторизованный доступ</p>
+{% endblock %}
+{% block extrastyle %}
+{{ block.super }}
+<style>
+#header { display: none; }
+.login #container { border: none; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+.login .submit-row { text-align: center; }
+</style>
+{% endblock %}
