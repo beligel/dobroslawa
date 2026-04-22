@@ -511,3 +511,14 @@ python manage.py makemigrations pages
 python manage.py migrate
 ```
 **Git:** Commit 3461ef2 - "feat: Add multilingual support"
+
+
+### [2026-04-22 16:33 UTC] - Fix templatetags location + Server restart
+**Действие:** Fixed + Deploy
+**Описание:**
+1. templatetags перенесен из корня в pages/templatetags/
+2. Создан __init__.py в pages/templatetags/
+3. Выполнены миграции
+4. Сервер перезапущен
+**Статус:** Работает, все языки функционируют
+**Проверка:** RU/en/zh-hans - все отвечают корректно
