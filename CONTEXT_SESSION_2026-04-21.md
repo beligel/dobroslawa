@@ -439,3 +439,55 @@ python-dotenv>=1.0  # для .env файлов
 
 **Конец файла / End of Context**
 
+
+
+### [2026-04-22 11:38 UTC] - Исправление мультиязычности
+**Действие:** modified
+**Описание:** 
+1. Создан templatetags/translation_extras.py с фильтрами get_trans_field
+2. Заполнены переводы RU→EN,ZH для Hero, Rooms, Amenities, Reviews
+3. Обновлен templates/pages/index.html для использования get_trans_field
+4. Удалены translation.py файлы (конфликт с существующими полями)
+**Файлы:**
+-  - новый (фильтры мультиязычности)
+-  - обновлен (load translation_extras)
+-  - удален
+-  - удален  
+-  - удален
+**Команды выполнены:**
+```bash
+cd ~/projects/dobroslawa.ru
+python manage.py shell  # Заполнены переводы
+```
+**База данных изменена:** Да (модели через shell)
+**Примечание:** Поля _en и _zh_hans уже были в моделях, заполнены через shell скрипт
+
+---
+
+
+
+### [2026-04-21 23:25 UTC] - Исправление мультиязычности
+**Действие:** modified  
+**Описание:** 
+1. Создан templatetags/translation_extras.py с фильтрами get_trans_field
+2. Заполнены переводы RU→EN,ZH для Hero, Rooms, Amenities, Reviews
+3. Обновлен templates/pages/index.html для использования get_trans_field
+4. Удалены translation.py файлы (конфликт с существующими полями)
+
+**Файлы:**
+- `templatetags/translation_extras.py` - новый (фильтры мультиязычности)
+- `templates/pages/index.html` - обновлен (load translation_extras)
+- `pages/translation.py` - удален
+- `rooms/translation.py` - удален  
+- `reviews/translation.py` - удален
+
+**Команды выполнены:**
+```bash
+cd ~/projects/dobroslawa.ru
+python manage.py shell  # Заполнены переводы
+```
+
+**База данных изменена:** Да (модели через shell)
+**Примечание:** Поля _en и _zh_hans уже были в моделях, заполнены через shell скрипт
+
+---

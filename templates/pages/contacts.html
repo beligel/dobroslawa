@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n static translation_extras %}
 
 {% block title %}{% trans 'Contact Us' %}{% endblock %}
 
@@ -22,7 +22,7 @@
             <a href="tel:{{ settings.phone|default:'+79990000000' }}" class="contact-card contact-card-highlight">
                 <div class="contact-icon">📞</div>
                 <h3>{% trans 'Phone' %}</h3>
-                <p class="contact-value">{{ settings.phone|default:'+7 (999) 000-00-00' }}</p>
+                <p class="contact-value">{% get_trans_field settings "phone" %}</p>
                 <span class="contact-note">{% trans 'Available 24/7' %}</span>
             </a>
             

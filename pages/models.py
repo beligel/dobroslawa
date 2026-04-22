@@ -22,8 +22,16 @@ class Page(models.Model):
     
     # Дополнительные поля для страницы Контакты
     phone = models.CharField(_('Phone'), max_length=50, blank=True)
+    phone_en = models.CharField(_('Phone (English)'), max_length=50, blank=True)
+    phone_zh_hans = models.CharField(_('Phone (Chinese)'), max_length=50, blank=True)
+    
     email = models.EmailField(_('Email'), blank=True)
+    email_en = models.EmailField(_('Email (English)'), blank=True)
+    email_zh_hans = models.EmailField(_('Email (Chinese)'), blank=True)
+    
     address = models.TextField(_('Address'), blank=True)
+    address_en = models.TextField(_('Address (English)'), blank=True)
+    address_zh_hans = models.TextField(_('Address (Chinese)'), blank=True)
     
     is_published = models.BooleanField(_('Published'), default=True)
     sort_order = models.PositiveSmallIntegerField(_('Sort order'), default=0)
@@ -70,8 +78,16 @@ class SiteSettings(models.Model):
     site_name_zh_hans = models.CharField(_('Site name (Chinese)'), max_length=100, blank=True)
     
     phone = models.CharField(_('Phone'), max_length=50, blank=True)
+    phone_en = models.CharField(_('Phone (English)'), max_length=50, blank=True)
+    phone_zh_hans = models.CharField(_('Phone (Chinese)'), max_length=50, blank=True)
+    
     email = models.EmailField(_('Email'), blank=True)
+    email_en = models.EmailField(_('Email (English)'), blank=True)
+    email_zh_hans = models.EmailField(_('Email (Chinese)'), blank=True)
+    
     address = models.TextField(_('Address'), blank=True)
+    address_en = models.TextField(_('Address (English)'), blank=True)
+    address_zh_hans = models.TextField(_('Address (Chinese)'), blank=True)
     
     copyright = models.TextField(_('Copyright text'), default='© 2025 Доброславия')
     
