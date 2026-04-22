@@ -1,10 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView
+from django.views.decorators.cache import never_cache
+from django.utils.decorators import method_decorator
 from rooms.models import Room, Amenity
 from reviews.models import Review
 from .models import SiteSettings, HeroSection, Page
 
 
+@method_decorator(never_cache, name='dispatch')
 class HomeView(TemplateView):
     template_name = 'pages/index.html'
     
@@ -18,6 +21,7 @@ class HomeView(TemplateView):
         return context
 
 
+@method_decorator(never_cache, name='dispatch')
 class PageDetailView(TemplateView):
     """Страница из модели Page"""
     template_name = 'pages/page_detail.html'
@@ -30,6 +34,7 @@ class PageDetailView(TemplateView):
         return context
 
 
+@method_decorator(never_cache, name='dispatch')
 class AboutView(TemplateView):
     template_name = 'pages/about.html'
     
@@ -39,6 +44,7 @@ class AboutView(TemplateView):
         return context
 
 
+@method_decorator(never_cache, name='dispatch')
 class ContactsView(TemplateView):
     template_name = 'pages/contacts.html'
     

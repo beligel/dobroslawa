@@ -120,3 +120,13 @@ HOTEL_EMAIL = 'info@dobroslawa.ru'
 
 # Бронирование
 BOOKING_HOURS_ADVANCE = 3  # Минимум часов до заезда
+
+# Отключение кэширования для мультиязычных страниц
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
+
+# Заголовки кэширования
+CACHE_MIDDLEWARE_SECONDS = 0
