@@ -676,3 +676,34 @@ python manage.py migrate
 - Russian content ✅
 - Google Maps iframe ✅
 **Git:** Commit 20a5094
+
+
+### [2026-04-22 19:15 UTC] - Fix contacts page translations
+**Действие:** Fixed
+**Проблема:** 
+- Страница contacts показывала английский текст:
+  - "Get in Touch" вместо "Свяжитесь с нами"
+  - "We are here to help you 24/7" вместо "Мы поможем вам 24/7"
+  - "Phone" вместо "Телефон"
+  - И другие...
+- Переводов не было в static_trans.py
+
+**Решение:**
+- Добавлены 20+ переводов в static_trans.py для RU и ZH языков
+- Все формы, кнопки, заголовки теперь переведены
+
+**Добавленные переводы (RU):**
+- Contact Us → Свяжитесь с нами
+- Get in Touch → Свяжитесь с нами
+- We are here to help you 24/7 → Мы поможем вам 24/7
+- Phone → Телефон
+- Address → Адрес
+- Send Message → Отправить сообщение
+- И другие...
+
+**Проверка:**
+- RU: "Свяжитесь с нами", "Телефон" ✅
+- EN: "Contact Us", "Phone" ✅
+- Карта Google Maps ✅
+
+**Git:** Commit 2b07c05
