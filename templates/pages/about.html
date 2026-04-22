@@ -1,17 +1,17 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n static translation_extras static_trans %}
 
-{% block title %}{% trans 'About Us' %}{% endblock %}
+{% block title %}{% static_trans 'About Us' %}{% endblock %}
 
-{% block meta_description %}{% trans 'Guest house Dobroslawa in Rostov-on-Don since 2012. Cozy rooms, historic location, family hospitality.' %}{% endblock %}
+{% block meta_description %}{% static_trans 'Guest house Dobroslawa in Rostov-on-Don since 2012. Cozy rooms, historic location, family hospitality.' %}{% endblock %}
 
 {% block content %}
 <!-- Hero -->
 <section class="page-hero">
     <div class="page-hero-content">
-        <span class="page-badge">{% trans 'Since 2012' %}</span>
-        <h1 class="page-title">{% trans 'About Dobroslawa' %}</h1>
-        <p class="page-subtitle">{% trans 'Where history meets hospitality' %}</p>
+        <span class="page-badge">{% static_trans 'Since 2012' %}</span>
+        <h1 class="page-title">{% static_trans 'About Dobroslawa' %}</h1>
+        <p class="page-subtitle">{% static_trans 'Where history meets hospitality' %}</p>
     </div>
 </section>
 
@@ -23,31 +23,31 @@
                 <div class="image-frame">
                     <div class="image-placeholder">
                         <span>🏛️</span>
-                        <p>{% trans 'Historic building' %}</p>
+                        <p>{% static_trans 'Historic building' %}</p>
                     </div>
                 </div>
             </div>
             
             <div class="story-content">
-                <h2>{% trans 'Our Story' %}</h2>
+                <h2>{% static_trans 'Our Story' %}</h2>
                 <p class="lead">
-                    {% trans 'Founded in 2012, Dobroslawa Guest House has been welcoming travelers from all over the world for over 13 years. We transformed a historic early 20th-century mansion into a cozy home away from home for our guests.' %}
+                    {% static_trans 'Founded in 2012, Dobroslawa Guest House has been welcoming travelers from all over the world for over 13 years. We transformed a historic early 20th-century mansion into a cozy home away from home for our guests.' %}
                 </p>
                 <p>
-                    {% trans 'Located in the heart of Rostov-on-Don, just steps from the main attractions, theaters, and restaurants, our house offers the perfect combination of comfort, privacy, and authentic Southern Russian hospitality.' %}
+                    {% static_trans 'Located in the heart of Rostov-on-Don, just steps from the main attractions, theaters, and restaurants, our house offers the perfect combination of comfort, privacy, and authentic Southern Russian hospitality.' %}
                 </p>
                 <div class="stats-row">
                     <div class="stat-item">
                         <span class="stat-number">13+</span>
-                        <span class="stat-label">{% trans 'Years of service' %}</span>
+                        <span class="stat-label">{% static_trans 'Years of service' %}</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-number">5000+</span>
-                        <span class="stat-label">{% trans 'Happy guests' %}</span>
+                        <span class="stat-label">{% static_trans 'Happy guests' %}</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-number">4.8</span>
-                        <span class="stat-label">{% trans 'Average rating' %}</span>
+                        <span class="stat-label">{% static_trans 'Average rating' %}</span>
                     </div>
                 </div>
             </div>
@@ -59,33 +59,33 @@
 <section class="section section-tinted">
     <div class="container">
         <div class="section-header">
-            <h2>{% trans 'Our Values' %}</h2>
-            <p class="section-subtitle">{% trans 'What makes us special' %}</p>
+            <h2>{% static_trans 'Our Values' %}</h2>
+            <p class="section-subtitle">{% static_trans 'What makes us special' %}</p>
         </div>
         
         <div class="values-grid">
             <div class="value-card">
                 <div class="value-icon">✨</div>
-                <h3>{% trans 'Cleanliness Above All' %}</h3>
-                <p>{% trans 'We maintain the highest standards of cleanliness. Every room is thoroughly cleaned and sanitized daily.' %}</p>
+                <h3>{% static_trans 'Cleanliness Above All' %}</h3>
+                <p>{% static_trans 'We maintain the highest standards of cleanliness. Every room is thoroughly cleaned and sanitized daily.' %}</p>
             </div>
             
             <div class="value-card">
                 <div class="value-icon">🏠</div>
-                <h3>{% trans 'Home Comfort' %}</h3>
-                <p>{% trans 'We create a warm, welcoming atmosphere where you feel at home, whether staying for a night or a month.' %}</p>
+                <h3>{% static_trans 'Home Comfort' %}</h3>
+                <p>{% static_trans 'We create a warm, welcoming atmosphere where you feel at home, whether staying for a night or a month.' %}</p>
             </div>
             
             <div class="value-card">
                 <div class="value-icon">🔒</div>
-                <h3>{% trans 'Privacy & Safety' %}</h3>
-                <p>{% trans 'Your privacy is paramount. Secure entry, individual keys, and a safe environment guaranteed.' %}</p>
+                <h3>{% static_trans 'Privacy & Safety' %}</h3>
+                <p>{% static_trans 'Your privacy is paramount. Secure entry, individual keys, and a safe environment guaranteed.' %}</p>
             </div>
             
             <div class="value-card">
                 <div class="value-icon">🌿</div>
-                <h3>{% trans 'Eco-Friendly' %}</h3>
-                <p>{% trans 'We use eco-friendly cleaning products, recycling, and energy-efficient appliances to minimize our footprint.' %}</p>
+                <h3>{% static_trans 'Eco-Friendly' %}</h3>
+                <p>{% static_trans 'We use eco-friendly cleaning products, recycling, and energy-efficient appliances to minimize our footprint.' %}</p>
             </div>
         </div>
     </div>
@@ -95,32 +95,32 @@
 <section class="section">
     <div class="container">
         <div class="section-header">
-            <h2>{% trans 'Perfect Location' %}</h2>
+            <h2>{% static_trans 'Perfect Location' %}</h2>
         </div>
         
         <div class="location-grid">
             <div class="location-info">
-                <h3>{% trans 'In the Heart of the City' %}</h3>
+                <h3>{% static_trans 'In the Heart of the City' %}</h3>
                 <ul class="location-list">
                     <li>
                         <span class="icon">🎭</span>
-                        <span>{% trans '5 min walk to Drama Theater' %}</span>
+                        <span>{% static_trans '5 min walk to Drama Theater' %}</span>
                     </li>
                     <li>
                         <span class="icon">🎨</span>
-                        <span>{% trans '10 min to Pushkin Street' %}</span>
+                        <span>{% static_trans '10 min to Pushkin Street' %}</span>
                     </li>
                     <li>
                         <span class="icon">🍽️</span>
-                        <span>{% trans 'Restaurants & cafes nearby' %}</span>
+                        <span>{% static_trans 'Restaurants & cafes nearby' %}</span>
                     </li>
                     <li>
                         <span class="icon">🚉</span>
-                        <span>{% trans '15 min to Railway Station' %}</span>
+                        <span>{% static_trans '15 min to Railway Station' %}</span>
                     </li>
                     <li>
                         <span class="icon">✈️</span>
-                        <span>{% trans '40 min to Airport' %}</span>
+                        <span>{% static_trans '40 min to Airport' %}</span>
                     </li>
                 </ul>
             </div>
@@ -128,8 +128,8 @@
             <div class="location-map">
                 <div class="map-placeholder">
                     <span>🗺️</span>
-                    <p>{% trans 'Interactive map will be displayed here' %}</p>
-                    <a href="https://maps.yandex.ru" target="_blank" class="btn-outline">{% trans 'Open in Maps' %}</a>
+                    <p>{% static_trans 'Interactive map will be displayed here' %}</p>
+                    <a href="https://maps.yandex.ru" target="_blank" class="btn-outline">{% static_trans 'Open in Maps' %}</a>
                 </div>
             </div>
         </div>
@@ -140,9 +140,9 @@
 <section class="section section-cta">
     <div class="container">
         <div class="cta-box">
-            <h2>{% trans 'Ready to experience Dobroslawa?' %}</h2>
-            <p>{% trans 'Book your stay now and feel the difference' %}</p>
-            <a href="{% url 'bookings:booking_create' %}" class="btn-primary btn-large">{% trans 'Book a Room' %}</a>
+            <h2>{% static_trans 'Ready to experience Dobroslawa?' %}</h2>
+            <p>{% static_trans 'Book your stay now and feel the difference' %}</p>
+            <a href="{% url 'bookings:booking_create' %}" class="btn-primary btn-large">{% static_trans 'Book a Room' %}</a>
         </div>
     </div>
 </section>

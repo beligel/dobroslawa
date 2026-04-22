@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% load i18n static translation_extras %}
+{% load i18n static translation_extras static_trans %}
 
-{% block title %}{% trans 'Guest House in Rostov-on-Don' %}{% endblock %}
+{% block title %}{% if LANGUAGE_CODE == 'ru' %}Гостевой дом в Ростове-на-Дону{% elif LANGUAGE_CODE == 'zh-hans' %}罗斯托夫宾馆{% else %}Guest House in Rostov-on-Don{% endif %}{% endblock %}
 
-{% block meta_description %}{% trans 'Cozy guest house Dobroslawa in the center of Rostov-on-Don. Comfortable rooms, free Wi-Fi, breakfast included. Book online!' %}{% endblock %}
+{% block meta_description %}{% if LANGUAGE_CODE == 'ru' %}Уютный гостевой дом Доброславия в центре Ростова-на-Дону. Комфортные номера, бесплатный Wi-Fi, завтрак включен. Бронируйте онлайн!{% elif LANGUAGE_CODE == 'zh-hans' %}位于罗斯托夫市中心的舒适旅馆。舒适的客房，免费Wi-Fi，含早餐。立即预订！{% else %}Cozy guest house Dobroslawa in the center of Rostov-on-Don. Comfortable rooms, free Wi-Fi, breakfast included. Book online!{% endif %}{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -13,33 +13,33 @@
         {% if hero.badge_text %}
         <span class="hero-badge">{{ hero.badge_text }}</span>
         {% endif %}
-        <h1 class="hero-title">{% if hero %}{% get_trans_field hero "title" %}{% else %}{% trans 'Welcome to Dobroslawa' %}{% endif %}</h1>
-        <p class="hero-subtitle">{% if hero %}{% get_trans_field hero "subtitle" %}{% else %}{% trans 'Cozy rooms in the heart of Rostov-on-Don' %}{% endif %}</p>
+        <h1 class="hero-title">{% if hero %}{% get_trans_field hero "title" %}{% else %}{% static_trans 'Welcome to Dobroslawa' %}{% endif %}</h1>
+        <p class="hero-subtitle">{% if hero %}{% get_trans_field hero "subtitle" %}{% else %}{% static_trans 'Cozy rooms in the heart of Rostov-on-Don' %}{% endif %}</p>
         
         <!-- Inline Booking Widget -->
         <div class="booking-widget">
             <form action="{% url 'bookings:booking_create' %}" method="get" class="booking-form-inline">
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="check_in">{% trans 'Check-in' %}</label>
+                        <label for="check_in">{% static_trans 'Check-in' %}</label>
                         <input type="date" id="check_in" name="check_in" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="check_out">{% trans 'Check-out' %}</label>
+                        <label for="check_out">{% static_trans 'Check-out' %}</label>
                         <input type="date" id="check_out" name="check_out" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="guests">{% trans 'Guests' %}</label>
+                        <label for="guests">{% static_trans 'Guests' %}</label>
                         <select id="guests" name="guests" class="form-control">
-                            <option value="1">1 {% trans 'guest' %}</option>
-                            <option value="2" selected>2 {% trans 'guests' %}</option>
-                            <option value="3">3 {% trans 'guests' %}</option>
-                            <option value="4">4 {% trans 'guests' %}</option>
+                            <option value="1">1 {% static_trans 'guest' %}</option>
+                            <option value="2" selected>2 {% static_trans 'guests' %}</option>
+                            <option value="3">3 {% static_trans 'guests' %}</option>
+                            <option value="4">4 {% static_trans 'guests' %}</option>
                         </select>
                     </div>
                     <div class="form-group form-group-submit">
                         <button type="submit" class="btn-primary btn-large">
-                            <span class="btn-text">{% trans 'Check Availability' %}</span>
+                            <span class="btn-text">{% static_trans 'Check Availability' %}</span>
                             <span class="btn-arrow">→</span>
                         </button>
                     </div>
@@ -48,7 +48,7 @@
         </div>
     </div>
     <div class="scroll-indicator">
-        <span>{% trans 'Scroll down' %}</span>
+        <span>{% static_trans 'Scroll down' %}</span>
         <div class="scroll-arrow"></div>
     </div>
 </section>
@@ -57,8 +57,8 @@
 <section class="section" id="rooms">
     <div class="container">
         <div class="section-header">
-            <h2 class="section-title">{% trans 'Our Rooms' %}</h2>
-            <p class="section-subtitle">{% trans 'Comfortable accommodation for every taste' %}</p>
+            <h2 class="section-title">{% static_trans 'Our Rooms' %}</h2>
+            <p class="section-subtitle">{% static_trans 'Comfortable accommodation for every taste' %}</p>
         </div>
         
         <div class="rooms-grid">
@@ -66,42 +66,42 @@
             <article class="room-card">
                 <div class="room-image">
                     {% if room.images.first %}
-                    <img src="{{ room.images.first.image.url }}" alt="{{ room.name }}" loading="lazy">
+                    <img src="{{ room.images.first.image.url }}" alt="{% get_trans_field room "name" %}" loading="lazy">
                     {% else %}
                     <div class="room-image-placeholder">
-                        <span>{% trans 'Photo coming soon' %}</span>
+                        <span>{% static_trans 'Photo coming soon' %}</span>
                     </div>
                     {% endif %}
                     <div class="room-price">
                         <span class="price-value">{{ room.price_per_night|floatformat:0 }}</span>
                         <span class="price-currency">₽</span>
-                        <span class="price-period">/{% trans 'night' %}</span>
+                        <span class="price-period">/{% static_trans 'night' %}</span>
                     </div>
                 </div>
                 <div class="room-info">
                     <h3 class="room-name">{% get_trans_field room "name" %}</h3>
-                    <span class="room-type">{{ room.get_type_display }}</span>
+                    <span class="room-type">{% if LANGUAGE_CODE == 'ru' %}{% if room.type == 'standard' %}Стандарт{% elif room.type == 'comfort' %}Комфорт{% elif room.type == 'suite' %}Люкс{% elif room.type == 'luxury' %}Люкс премиум{% endif %}{% elif LANGUAGE_CODE == 'zh-hans' %}{% if room.type == 'standard' %}标准间{% elif room.type == 'comfort' %}舒适间{% elif room.type == 'suite' %}套房{% elif room.type == 'luxury' %}豪华间{% endif %}{% else %}{{ room.get_type_display }}{% endif %}</span>
                     <p class="room-description">{% get_trans_field room "description"|truncatewords:20 %}</p>
                     <div class="room-features">
-                        <span class="feature" title="{% trans 'Capacity' %}">👥 {{ room.capacity }}</span>
-                        {% if room.area_sqm %}<span class="feature" title="{% trans 'Area' %}">📐 {{ room.area_sqm }}м²</span>{% endif %}
-                        {% if room.has_wifi %}<span class="feature" title="{% trans 'Wi-Fi' %}">📶</span>{% endif %}
-                        {% if room.has_ac %}<span class="feature" title="{% trans 'Air conditioning' %}">❄️</span>{% endif %}
+                        <span class="feature" title="{% static_trans 'Capacity' %}">👥 {{ room.capacity }}</span>
+                        {% if room.area_sqm %}<span class="feature" title="{% static_trans 'Area' %}">📐 {{ room.area_sqm }}м²</span>{% endif %}
+                        {% if room.has_wifi %}<span class="feature" title="{% static_trans 'Wi-Fi' %}">📶</span>{% endif %}
+                        {% if room.has_ac %}<span class="feature" title="{% static_trans 'Air conditioning' %}">❄️</span>{% endif %}
                     </div>
                     <a href="{% url 'rooms:room_detail' room.pk %}" class="btn-secondary">
-                        {% trans 'View Details' %} →
+                        {% static_trans 'View Details' %} →
                     </a>
                 </div>
             </article>
             {% empty %}
             <div class="empty-state">
-                <p>{% trans 'Rooms will appear here soon' %}</p>
+                <p>{% static_trans 'Rooms will appear here soon' %}</p>
             </div>
             {% endfor %}
         </div>
         
         <div class="section-cta">
-            <a href="{% url 'rooms:room_list' %}" class="btn-outline">{% trans 'View All Rooms' %}</a>
+            <a href="{% url 'rooms:room_list' %}" class="btn-outline">{% static_trans 'View All Rooms' %}</a>
         </div>
     </div>
 </section>
@@ -111,8 +111,8 @@
 <section class="section section-dark" id="amenities">
     <div class="container">
         <div class="section-header">
-            <h2 class="section-title">{% trans 'Why Choose Us' %}</h2>
-            <p class="section-subtitle">{% trans 'Everything for your comfortable stay' %}</p>
+            <h2 class="section-title">{% static_trans 'Why Choose Us' %}</h2>
+            <p class="section-subtitle">{% static_trans 'Everything for your comfortable stay' %}</p>
         </div>
         
         <div class="amenities-grid">
@@ -135,8 +135,8 @@
 <section class="section" id="reviews">
     <div class="container">
         <div class="section-header">
-            <h2 class="section-title">{% trans 'Guest Reviews' %}</h2>
-            <p class="section-subtitle">{% trans 'What our guests say about us' %}</p>
+            <h2 class="section-title">{% static_trans 'Guest Reviews' %}</h2>
+            <p class="section-subtitle">{% static_trans 'What our guests say about us' %}</p>
         </div>
         
         <div class="reviews-grid">
@@ -159,14 +159,14 @@
 <section class="section section-cta">
     <div class="container">
         <div class="cta-box">
-            <h2 class="cta-title">{% trans 'Ready to book your stay?' %}</h2>
-            <p class="cta-subtitle">{% trans 'Contact us now and get the best price guarantee' %}</p>
+            <h2 class="cta-title">{% static_trans 'Ready to book your stay?' %}</h2>
+            <p class="cta-subtitle">{% static_trans 'Contact us now and get the best price guarantee' %}</p>
             <div class="cta-buttons">
                 <a href="{% url 'bookings:booking_create' %}" class="btn-primary btn-large">
-                    {% trans 'Book Online' %}
+                    {% static_trans 'Book Online' %}
                 </a>
                 <a href="tel:{{ settings.phone|default:'+79990000000' }}" class="btn-whatsapp">
-                    📞 {% trans 'Call Now' %}
+                    📞 {% static_trans 'Call Now' %}
                 </a>
             </div>
         </div>

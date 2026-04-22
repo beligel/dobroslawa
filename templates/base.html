@@ -1,12 +1,12 @@
-{% load i18n static %}
+{% load i18n static translation_extras static_trans %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{% block meta_description %}{% trans 'Guest house Dobroslawa in Rostov-on-Don. Cozy rooms, free Wi-Fi, breakfast included.' %}{% endblock %}">
+    <meta name="description" content="{% block meta_description %}{% static_trans 'Guest house Dobroslawa in Rostov-on-Don. Cozy rooms, free Wi-Fi, breakfast included.' %}{% endblock %}">
     
-    <title>{% block title %}{% endblock %} | {% trans 'Dobroslawa' %}</title>
+    <title>{% block title %}{% endblock %} | {% static_trans 'Dobroslawa' %}</title>
     
     <style>
         :root {
@@ -84,12 +84,12 @@
 <body>
     <header>
         <nav>
-            <a href="{% url 'pages:home' %}" class="logo">{% trans 'Dobroslawa' %}</a>
+            <a href="{% url 'pages:home' %}" class="logo">{% static_trans 'Dobroslawa' %}</a>
             
             <ul class="nav-links">
-                <li><a href="{% url 'pages:about' %}"{% if request.resolver_match.url_name == 'about' %} class="active"{% endif %}>{% trans 'About' %}</a></li>
-                <li><a href="{% url 'rooms:room_list' %}"{% if request.resolver_match.url_name == 'room_list' %} class="active"{% endif %}>{% trans 'Rooms' %}</a></li>
-                <li><a href="{% url 'pages:contacts' %}"{% if request.resolver_match.url_name == 'contacts' %} class="active"{% endif %}>{% trans 'Contacts' %}</a></li>
+                <li><a href="{% url 'pages:about' %}"{% if request.resolver_match.url_name == 'about' %} class="active"{% endif %}>{% static_trans 'About' %}</a></li>
+                <li><a href="{% url 'rooms:room_list' %}"{% if request.resolver_match.url_name == 'room_list' %} class="active"{% endif %}>{% static_trans 'Rooms' %}</a></li>
+                <li><a href="{% url 'pages:contacts' %}"{% if request.resolver_match.url_name == 'contacts' %} class="active"{% endif %}>{% static_trans 'Contacts' %}</a></li>
                 <li class="lang-switcher">
                     <form action="{% url 'set_language' %}" method="post">
                         {% csrf_token %}
@@ -101,7 +101,7 @@
                 </li>
             </ul>
             
-            <a href="tel:{{ settings.phone|default:'+79990000000' }}" class="phone-btn">{% trans 'Book now' %}</a>
+            <a href="tel:{{ settings.phone|default:'+79990000000' }}" class="phone-btn">{% static_trans 'Book now' %}</a>
         </nav>
     </header>
 
@@ -120,23 +120,23 @@
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h4>{% trans 'Dobroslawa' %}</h4>
+                <h4>{% static_trans 'Dobroslawa' %}</h4>
                 <p style="color: rgba(255,255,255,0.8); line-height: 1.8;">
-                    {% trans 'Guest house in the center of Rostov-on-Don. Cozy, clean, home-like.' %}
+                    {% static_trans 'Guest house in the center of Rostov-on-Don. Cozy, clean, home-like.' %}
                 </p>
             </div>
             
             <div class="footer-section">
-                <h4>{% trans 'Contacts' %}</h4>
+                <h4>{% static_trans 'Contacts' %}</h4>
                 <a href="tel:{{ settings.phone|default:'+79990000000' }}">{{ settings.phone|default:'+7 (999) 000-00-00' }}</a>
                 <a href="mailto:{{ settings.email|default:'info@dobroslawa.ru' }}">{{ settings.email|default:'info@dobroslawa.ru' }}</a>
                 <p style="color: rgba(255,255,255,0.6); margin-top: 1rem;">{{ settings.address|default:'ул. Пушкина, 10' }}</p>
             </div>
             
             <div class="footer-section">
-                <h4>{% trans 'Legal' %}</h4>
-                <a href="#">{% trans 'Privacy Policy' %}</a>
-                <a href="#">{% trans 'Terms of Service' %}</a>
+                <h4>{% static_trans 'Legal' %}</h4>
+                <a href="#">{% static_trans 'Privacy Policy' %}</a>
+                <a href="#">{% static_trans 'Terms of Service' %}</a>
             </div>
         </div>
         

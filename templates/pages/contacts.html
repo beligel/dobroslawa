@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% load i18n static translation_extras %}
 
-{% block title %}{% trans 'Contact Us' %}{% endblock %}
+{% block title %}{% static_trans 'Contact Us' %}{% endblock %}
 
-{% block meta_description %}{% trans 'Contact Dobroslawa Guest House in Rostov-on-Don. Phone, WhatsApp, email, and location.' %}{% endblock %}
+{% block meta_description %}{% static_trans 'Contact Dobroslawa Guest House in Rostov-on-Don. Phone, WhatsApp, email, and location.' %}{% endblock %}
 
 {% block content %}
 <!-- Hero -->
 <section class="page-hero">
     <div class="page-hero-content">
-        <h1 class="page-title">{% trans 'Get in Touch' %}</h1>
-        <p class="page-subtitle">{% trans 'We are here to help you 24/7' %}</p>
+        <h1 class="page-title">{% static_trans 'Get in Touch' %}</h1>
+        <p class="page-subtitle">{% static_trans 'We are here to help you 24/7' %}</p>
     </div>
 </section>
 
@@ -21,17 +21,17 @@
             <!-- Phone -->
             <a href="tel:{{ settings.phone|default:'+79990000000' }}" class="contact-card contact-card-highlight">
                 <div class="contact-icon">📞</div>
-                <h3>{% trans 'Phone' %}</h3>
+                <h3>{% static_trans 'Phone' %}</h3>
                 <p class="contact-value">{% get_trans_field settings "phone" %}</p>
-                <span class="contact-note">{% trans 'Available 24/7' %}</span>
+                <span class="contact-note">{% static_trans 'Available 24/7' %}</span>
             </a>
             
             <!-- WhatsApp -->
             <a href="https://wa.me/{{ settings.whatsapp|default:'79990000000' }}" target="_blank" class="contact-card">
                 <div class="contact-icon contact-whatsapp">💬</div>
                 <h3>WhatsApp</h3>
-                <p class="contact-value">{% trans 'Chat with us' %}</p>
-                <span class="contact-note">{% trans 'Usually replies in 5 min' %}</span>
+                <p class="contact-value">{% static_trans 'Chat with us' %}</p>
+                <span class="contact-note">{% static_trans 'Usually replies in 5 min' %}</span>
             </a>
             
             <!-- Email -->
@@ -39,15 +39,15 @@
                 <div class="contact-icon">✉️</div>
                 <h3>Email</h3>
                 <p class="contact-value">{{ settings.email|default:'info@dobroslawa.ru' }}</p>
-                <span class="contact-note">{% trans 'For booking & questions' %}</span>
+                <span class="contact-note">{% static_trans 'For booking & questions' %}</span>
             </a>
             
             <!-- Address -->
             <div class="contact-card">
                 <div class="contact-icon">📍</div>
-                <h3>{% trans 'Address' %}</h3>
+                <h3>{% static_trans 'Address' %}</h3>
                 <p class="contact-value">{{ settings.address|default:'10 Pushkin Street, Rostov-on-Don' }}</p>
-                <span class="contact-note">{% trans 'Central location' %}</span>
+                <span class="contact-note">{% static_trans 'Central location' %}</span>
             </div>
         </div>
     </div>
@@ -59,14 +59,14 @@
         <div class="two-column-layout">
             <!-- Quick Message Form -->
             <div class="message-form-column">
-                <h2>{% trans 'Send us a message' %}</h2>
+                <h2>{% static_trans 'Send us a message' %}</h2>
                 <form class="contact-form" action="#" method="post">
                     {% csrf_token %}
                     
                     <div class="form-group">
-                        <label for="name">{% trans 'Your Name' %}</label>
+                        <label for="name">{% static_trans 'Your Name' %}</label>
                         
-                        <input type="text" id="name" name="name" class="form-control" placeholder="{% trans 'John Smith' %}" required>
+                        <input type="text" id="name" name="name" class="form-control" placeholder="{% static_trans 'John Smith' %}" required>
                     </div>
                     
                     <div class="form-group">
@@ -76,24 +76,24 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="subject">{% trans 'Subject' %}</label>
+                        <label for="subject">{% static_trans 'Subject' %}</label>
                         
                         <select id="subject" name="subject" class="form-control">
-                            <option value="booking">{% trans 'Room Booking' %}</option>
-                            <option value="question">{% trans 'Question' %}</option>
-                            <option value="review">{% trans 'Leave a Review' %}</option>
-                            <option value="other">{% trans 'Other' %}</option>
+                            <option value="booking">{% static_trans 'Room Booking' %}</option>
+                            <option value="question">{% static_trans 'Question' %}</option>
+                            <option value="review">{% static_trans 'Leave a Review' %}</option>
+                            <option value="other">{% static_trans 'Other' %}</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="message">{% trans 'Message' %}</label>
+                        <label for="message">{% static_trans 'Message' %}</label>
                         
-                        <textarea id="message" name="message" class="form-control" rows="4" placeholder="{% trans 'How can we help you?' %}" required></textarea>
+                        <textarea id="message" name="message" class="form-control" rows="4" placeholder="{% static_trans 'How can we help you?' %}" required></textarea>
                     </div>
                     
                     <button type="submit" class="btn-primary btn-full">
-                        {% trans 'Send Message' %} →
+                        {% static_trans 'Send Message' %} →
                     </button>
                 
 </form>
@@ -102,7 +102,7 @@
             
             <!-- Map -->
             <div class="map-column">
-                <h2>{% trans 'Find us on the map' %}</h2>
+                <h2>{% static_trans 'Find us on the map' %}</h2>
                 <div class="map-container">
                     <div class="map-embed">
                         <!-- Здесь можно вставить iframe Яндекс.Карт или Google Maps -->
@@ -110,22 +110,22 @@
                             <span>🗺️</span>
                             <p>{{ settings.address|default:'Rostov-on-Don' }}</p>
                             <a href="https://maps.yandex.ru" target="_blank" class="btn-outline">
-                                {% trans 'Open in Maps' %}
+                                {% static_trans 'Open in Maps' %}
                             </a>
                         </div>
                     </div>
                 </div>
                 
                 <div class="visit-info">
-                    <h4>{% trans 'Reception Hours' %}</h4>
+                    <h4>{% static_trans 'Reception Hours' %}</h4>
                     <ul class="hours-list">
                         <li>
-                            <span>{% trans 'Check-in' %}</span>
+                            <span>{% static_trans 'Check-in' %}</span>
                             <span>14:00 – 00:00</span>
                         </li>
                         <li>
-                            <span>{% trans 'Check-out' %}</span>
-                            <span>{% trans 'until' %} 12:00</span>
+                            <span>{% static_trans 'Check-out' %}</span>
+                            <span>{% static_trans 'until' %} 12:00</span>
                         </li>
                     </ul>
                 </div>
@@ -139,12 +139,12 @@
     <div class="container">
         <div class="quick-book-box">
             <div class="quick-book-content">
-                <h3>{% trans 'Ready to book?' %}</h3>
-                <p>{% trans 'Best price guaranteed when booking directly' %}</p>
+                <h3>{% static_trans 'Ready to book?' %}</h3>
+                <p>{% static_trans 'Best price guaranteed when booking directly' %}</p>
             </div>
             
             <a href="{% url 'bookings:booking_create' %}" class="btn-primary btn-large">
-                {% trans 'Book Now' %}
+                {% static_trans 'Book Now' %}
             </a>
         </div>
     </div>
