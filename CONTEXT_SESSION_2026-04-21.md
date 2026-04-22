@@ -491,3 +491,23 @@ python manage.py shell  # Заполнены переводы
 **Примечание:** Поля _en и _zh_hans уже были в моделях, заполнены через shell скрипт
 
 ---
+
+
+### [2026-04-21 23:35 UTC] - Полная мультиязычность
+**Действие:** Added + Modified
+**Описание:**
+1. Добавлены поля _en и _zh_hans в SiteSettings (phone, email, address)
+2. Добавлены поля для Page (phone, email, address с переводами)
+3. Обновлены templates/contacts.html и about.html
+4. Заполнены все переводы SiteSettings
+5. Сделан коммит
+**Файлы:**
+- `pages/models.py` - добавлены поля переводов
+- `templates/pages/contacts.html` - updated с translation_extras
+- `templatetags/__init__.py` - создан (новый)
+**Команды:**
+```bash
+python manage.py makemigrations pages
+python manage.py migrate
+```
+**Git:** Commit 3461ef2 - "feat: Add multilingual support"
