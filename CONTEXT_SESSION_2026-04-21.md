@@ -656,3 +656,23 @@ python manage.py migrate
 **Файлы:**
 - `templates/pages/contacts.html` - добавлен static_trans
 **Git:** Commit ef981f8
+
+
+### [2026-04-22 19:00 UTC] - Fix Russian language default + Add Google Maps
+**Действие:** Fixed + Added
+**Проблема:** 
+- При заходе на сайт первый раз (/), Django редиректил на /en/ если браузер на английском
+- Нужна была Google Maps карта на странице контактов
+**Решение:**
+1. Создан ForceRussianLanguageMiddleware
+2. Добавлен Google Maps iframe на страницу contacts
+3. Добавлены переводы для контактов
+**Файлы:**
+- dobroslawa/middleware.py - новый
+- templates/pages/contacts.html - Google Maps iframe
+- dobroslawa/settings.py - middleware порядок
+**Проверка:**
+- / → /ru/ ✅
+- Russian content ✅
+- Google Maps iframe ✅
+**Git:** Commit 20a5094
