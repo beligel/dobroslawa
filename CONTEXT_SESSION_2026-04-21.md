@@ -522,3 +522,19 @@ python manage.py migrate
 4. Сервер перезапущен
 **Статус:** Работает, все языки функционируют
 **Проверка:** RU/en/zh-hans - все отвечают корректно
+
+
+### [2026-04-22 16:40 UTC] - Fix language switching cache bug
+**Действие:** Fixed
+**Проблема:** 
+- При переключении языка RU→EN→RU некоторые блоки оставались на предыдущем языке
+- Браузер и Django кэшировали страницы
+**Решение:**
+1. Добавлен @never_cache decorator для всех view в pages/views.py
+2. Добавлены настройки CACHES с DummyCache backend
+3. CACHE_MIDDLEWARE_SECONDS = 0 в settings.py
+**Файлы:**
+- pages/views.py - добавлены @method_decorator(never_cache)
+- dobroslawa/settings.py - добавлены настройки кэширования
+**Проверка:** curl -I показывает Cache-Control: no-cache
+**Git:** Commit b8c8627
