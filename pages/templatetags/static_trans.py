@@ -41,7 +41,7 @@ STATIC_TRANSLATIONS = {
         'Contacts': 'Контакты',
         'House Rules': 'Порядок проживания',
                 'Contact Us': 'Свяжитесь с нами',
-        'Contact Dobroslawa Guest House in Rostov-on-Don. Phone, WhatsApp, email, and location.': 'Гостевой дом Доброславия в Ростове-на-Дону. Телефон, WhatsApp, email и расположение.',
+        'Dobroslawa Guest House in Rostov-on-Don, 83a Vsesoyuznaya St. Phone: +7(863)2972375, +7(863)2972376, +79515278320, email: info@dobroslawa.ru': 'Гостевой дом Доброславия в Ростове-на-Дону, ул. Всесоюзная, 83а. Телефон: +7(863)2972375, +7(863)2972376, +79515278320, email: info@dobroslawa.ru',
         'Get in Touch': 'Свяжитесь с нами',
         'We are here to help you 24/7': 'Мы поможем вам 24/7',
         'Phone': 'Телефон',
@@ -66,7 +66,11 @@ STATIC_TRANSLATIONS = {
         'Send Message': 'Отправить сообщение',
         'Email sent successfully!': 'Сообщение успешно отправлено!',
         'Thank you for contacting us. We will get back to you shortly.': 'Спасибо за обращение. Мы свяжемся с вами в ближайшее время.',
-'Everything you need to know for a comfortable stay': 'Всё, что нужно знать для комфортного проживания',
+        'Coordinates': 'Координаты',
+        'For navigators': 'Для навигаторов',
+        ' (24/7)': ' (круглосуточно)',
+        'Fax': 'Факс',
+        'Everything you need to know for a comfortable stay': 'Всё, что нужно знать для комфортного проживания',
     },
     'zh-hans': {
         'Welcome to Dobroslawa': '欢迎来到多布罗斯拉维亚',
@@ -104,7 +108,7 @@ STATIC_TRANSLATIONS = {
         'Contacts': '联系我们',
         'House Rules': '住宿规定',
                 'Contact Us': '联系我们',
-        'Contact Dobroslawa Guest House in Rostov-on-Don. Phone, WhatsApp, email, and location.': '多布罗斯拉维亚宾馆联系方式。电话、WhatsApp、电子邮件和位置。',
+        'Dobroslawa Guest House in Rostov-on-Don, 83a Vsesoyuznaya St. Phone: +7(863)2972375, +7(863)2972376, +79515278320, email: info@dobroslawa.ru': '多布罗斯拉维亚宾馆，联盟大街83a号。电话：+7(863)2972375, +7(863)2972376, +79515278320，邮箱：info@dobroslawa.ru',
         'Get in Touch': '联系我们',
         'We are here to help you 24/7': '我们全天候为您服务',
         'Phone': '电话',
@@ -129,7 +133,11 @@ STATIC_TRANSLATIONS = {
         'Send Message': '发送消息',
         'Email sent successfully!': '邮件发送成功！',
         'Thank you for contacting us. We will get back to you shortly.': '感谢您联系我们。我们将尽快回复您。',
-'Everything you need to know for a comfortable stay': '舒适住宿须知',
+        'Coordinates': '坐标',
+        'For navigators': '用于导航',
+        ' (24/7)': ' (全天候)',
+        'Fax': '传真',
+        'Everything you need to know for a comfortable stay': '舒适住宿须知',
     }
 }
 
