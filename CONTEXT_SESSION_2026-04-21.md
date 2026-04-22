@@ -739,3 +739,17 @@ python manage.py migrate
 - WhatsApp удален ✅
 
 **Git:** Commit 4ae329d
+
+
+### [2026-04-22 19:35 UTC] - Update coordinates to precise values
+**Действие:** Updated
+**Описание:**
+- Обновлены координаты: 47.190986, 39.624768 (вместо 47.19093, 39.624743)
+- Обновлены в двух местах:
+  1. Отображаемые координаты на карточке
+  2. URL Google Maps iframe
+
+**Файлы:**
+- `templates/pages/contacts.html` - обновлены координаты
+
+**Git:** Commit 7ec98c8
