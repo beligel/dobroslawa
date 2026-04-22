@@ -538,3 +538,27 @@ python manage.py migrate
 - dobroslawa/settings.py - добавлены настройки кэширования
 **Проверка:** curl -I показывает Cache-Control: no-cache
 **Git:** Commit b8c8627
+
+
+### [2026-04-22 16:45 UTC] - Complete multilingual fix with static_trans
+**Действие:** Fixed completely
+**Проблема:** 
+- Некоторые блоки оставались на английском при переключении языка
+- `{% trans %}` не работал без .po файлов
+- Room type (choices) не переводился
+**Решение:**
+1. Создан `pages/templatetags/static_trans.py` со словарём переводов
+2. Все `{% trans %}` заменены на `{% static_trans %}` во всех шаблонах
+3. Room-type теперь переключается через if/elif в шаблоне
+4. Добавлены переводы в словарь для RU и ZH
+**Файлы:**
+- `pages/templatetags/static_trans.py` - новый (словарь переводов)
+- `templates/pages/index.html` - заменены trans на static_trans
+- `templates/pages/about.html` - заменены trans на static_trans
+- `templates/pages/contacts.html` - заменены trans на static_trans
+- `templates/base.html` - заменены trans на static_trans
+**Проверка:** 
+- RU: "Заезд" ✅
+- EN: "Check-in" ✅
+- ZH: "入住" ✅
+**Git:** Commit 4d21c17
