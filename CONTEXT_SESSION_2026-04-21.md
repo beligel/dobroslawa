@@ -1,0 +1,410 @@
+# Контекст сессии pi-coding-agent
+## Дата: 2026-04-21
+## ID сессии: 019db164-1e51-7604-a563-8ae713d1a0cc
+## Проект: dobroslawa.ru (репозиторий перенесён в cosmos-hotel.net, затем восстановлен)
+
+---
+
+## 🎯 Объект работы
+
+### Основной проект
+**Гостевой дом «Доброславия» (Dobroslawa)** — сайт на Django для гостевого дома в Ростове-на-Дону.
+- **Репозиторий GitHub**: https://github.com/beligel/dobroslawa
+- **Локальный путь**: `/home/che/projects/dobroslawa.ru`
+- **Статус**: Django 4.2 проект с кастомной админ-панелью
+
+### Ключевые данные
+- **Язык интерфейса:** Русский (мультиязычность RU/EN/CN)
+- **База данных:** SQLite (db.sqlite3 - исключена из git)
+- **Python:** 3.12
+- **Email dev:** che.xvost@gmail.com (GitHub: beligel)
+
+---
+
+## 📋 Что было выполнено в сессии
+
+### 1. Редизайн существующего проекта
+- Исходный проект был статичным HTML (index.html)
+- Переведён в полноценный Django проект с БД
+
+### 2. Создана структура Django приложений
+
+#### Приложения:
+- **pages** — статические страницы (О нас, Контакты, HeroSection, SiteSettings)
+- **rooms** — номера (Room, RoomImage, Amenity)
+- **bookings** — бронирования (Booking, BookingSettings)
+- **reviews** — отзывы гостей (Review)
+
+#### Модели (ключевые поля):
+
+**Room** (rooms/models.py):
+```python
+- type: choices (standard, comfort, suite, luxury)
+- name: CharField (многоязычность через modeltranslation)
+- description: TextField
+- price_per_night: Decimal
+- capacity: Integer
+- area_sqm: Integer
+- amenities: wifi, tv, ac, fridge, safe (Boolean)
+- is_active, sort_order
+```
+
+**Booking** (bookings/models.py):
+```python
+- guest_name, guest_email, guest_phone
+- room: ForeignKey
+- check_in, check_out: DateField
+- guests_count: Integer
+- status: choices (pending, confirmed, checked_in, checked_out, cancelled)
+- total_price: Decimal
+- special_requests: Text
+- ip_address (для безопасности)
+```
+
+**Review** (reviews/models.py):
+```python
+- guest_name
+- rating: 1-5 (validators)
+- text (многоязычность)
+- status: (pending, approved, rejected)
+- is_featured: Boolean
+```
+
+**SiteSettings** (pages/models.py):
+```python
+- site_name, phone, email, address
+- whatsapp, telegram, viber
+- copyright, og_image
+- Singleton (только одна запись)
+```
+
+**HeroSection** (pages/models.py):
+```python
+- title, subtitle (переводы)
+- image
+- badge_text
+- is_active
+```
+
+---
+
+## 🎨 Frontend (шаблоны)
+
+### Созданные шаблоны:
+1. **templates/pages/index.html** — главная страница (полный редизайн)
+   - Hero секция с inline booking widget
+   - Карточки номеров (3 типа: Стандарт, Комфорт, Люкс)
+   - Отзывы гостей
+   - Удобства (Amenities)
+   - CTA блоки
+
+2. **templates/pages/about.html** — страница "О нас"
+3. **templates/pages/contacts.html** — контакты + форма
+4. **templates/base.html** — базовый шаблон с навигацией
+
+### Дизайн-система:
+- **Primary:** #2C3E50 (тёмно-синий)
+- **Accent:** #E67E22 (оранжевый)
+- **Background:** #FDFCF8 (тёплый белый)
+- **Features:** CSS Grid, Flexbox, Glassmorphism, Responsive (mobile-first)
+
+---
+
+## 🔧 Кастомная админ-панель (dobroslawa/admin_custom.py)
+
+### Особенности:
+1. **Dashboard** (templates/admin/index.html)
+   - Статистика: бронирования, номера, доход
+   - Быстрые ссылки на разделы
+   - Блок пользователей (только для админов)
+
+2. **RoomAdmin**
+   - Inline изображения с превью
+   - Actions: активировать/деактивировать/дублировать
+   - Фильтры по удобствам
+
+3. **BookingAdmin**
+   - Color badges для статусов
+   - Экспорт в CSV и Excel
+   - Графики (Chart.js) в changelist
+   - Данные для графиков генерируются в changelist_view
+
+4. **ReviewAdmin**
+   - Unicode stars (★☆) для рейтинга
+   - Модерация (approve/reject)
+   - Избранные отзывы (is_featured)
+
+5. **CustomUserAdmin + CustomGroupAdmin**
+   - Управление пользователями в админке
+   - Actions: activate/deactivate/make_staff
+   - Отображение групп в списке
+
+6. **Права доступа**
+   - Администратор: полный доступ
+   - Менеджер: view/change/add, но не delete
+   - Контент-менеджер: только pages
+
+---
+
+## 🔒 Настройки и безопасность
+
+### Файлы настроек:
+1. **settings.py** — базовый (есть проблемы с безопасностью)
+2. **settings_secure.py** — безопасная версия для продакшена
+
+### Проблемы безопасности, выявленные в сессии:
+- [x] DEBUG = True (исправлено в settings_secure.py)
+- [x] ALLOWED_HOSTS = ['*'] (исправлено)
+- [x] SECRET_KEY в коде (добавлена загрузка из env)
+- [x] SQLite в репозитории (добавлено в .gitignore)
+
+### Созданы файлы для безопасности:
+- `SECURITY_FIXES.md` — документация по уязвимостям
+- `.env.example` — шаблон переменных окружения
+- `generate_env.py` — генератор SECRET_KEY
+
+---
+
+## 📊 Демо-данные
+
+Созданы через Django shell:
+
+**SiteSettings:**
+- site_name: "Доброславия"
+- phone: "+7 (863) 123-45-67"
+- email: "info@dobroslawa.ru"
+- address: "ул. Пушкина, 10, Ростов-на-Дону"
+
+**HeroSection:**
+- title: "Уютный гостевой дом в центре Ростова"
+- subtitle: "Комфортные номера, домашняя атмосфера"
+- badge: "С 2012 года"
+
+**Номера (3 шт):**
+- Стандарт: 2500₽(18м²)
+- Комфорт: 3500₽(25м²)
+- Люкс: 5500₽(40м²)
+
+**Удобства (3 шт):**
+- 🍳 Завтрак включен
+- 📶 Wi-Fi
+- 🅿️ Парковка
+
+**Отзывы (3 шт):**
+- Одобренные, рейтинг 4-5 звезд
+
+**Пользователь admin:**
+- Логин: admin
+- Пароль: admin
+- ID: 1, superuser
+
+---
+
+## 🚀 GitHub репозиторий
+
+**URL:** https://github.com/beligel/dobroslawa
+
+### История коммитов:
+1. Initial commit: Django проект с кастомной админкой
+2. 🔒 Add security fixes and documentation
+
+### GitHub Token (исторический):
+- Токен для API: `[REMOVED - see GitHub Settings]`
+- Владелец: beligel
+- Репозиторий public
+
+---
+
+## 📁 Структура проекта (важные файлы)
+
+```
+dobroslawa/
+├── requirements.txt           # Django>=4.2,<5.0, Pillow, modeltranslation
+├── manage.py
+├── README.md                  # Документация проекта
+├── SECURITY_FIXES.md          # Аудит безопасности
+├── generate_env.py            # Генератор SECRET_KEY
+├── .env.example               # Шаблон env
+├── .gitignore                 # Исключения (venv, db.sqlite3, media)
+│
+├── dobroslawa/               # Настройки проекта
+│   ├── __init__.py
+│   ├── settings.py           # Основной (dev)
+│   ├── settings_secure.py    # Продакшен версия
+│   ├── urls.py               # Маршруты с i18n
+│   ├── wsgi.py
+│   └── admin_custom.py       # Кастомная админка
+│
+├── pages/                    # Приложение статических страниц
+│   ├── models.py             # Page, HeroSection, SiteSettings
+│   ├── views.py              # HomeView, AboutView, ContactsView
+│   ├── urls.py
+│   └── admin.py              # (удалено, используем admin_custom)
+│
+├── rooms/                    # Номера
+│   ├── models.py             # Room, RoomImage, Amenity
+│   ├── views.py
+│   └── urls.py
+│
+├── bookings/                 # Бронирования
+│   ├── models.py             # Booking, BookingSettings
+│   ├── forms.py              # BookingForm с валидацией дат
+│   ├── views.py
+│   └── urls.py
+│
+├── reviews/                  # Отзывы
+│   └── models.py
+│
+├── templates/                # HTML шаблоны
+│   ├── base.html
+│   ├── pages/
+│   │   ├── index.html
+│   │   ├── about.html
+│   │   └── contacts.html
+│   ├── admin/
+│   │   ├── index.html        # Дашборд
+│   │   ├── base_site.html
+│   │   └── login.html
+│   └── admin/bookings/booking/
+│       └── change_list.html   # Шаблон с графиками
+│
+├── static/                   # CSS, JS, изображения
+│   └── ...
+│
+└── db.sqlite3               # База данных (в .gitignore)
+```
+
+---
+
+## 🔧 Технические команды
+
+### Запуск локально:
+```bash
+cd ~/projects/dobroslawa.ru
+source venv/bin/activate
+python manage.py runserver 0.0.0.0:8000
+```
+
+### Миграции:
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+### Создание суперпользователя:
+```bash
+python manage.py createsuperuser
+# или
+python manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@admin.com', 'admin')"
+```
+
+### Создание групп:
+```bash
+python manage.py shell
+>>> from dobroslawa.admin_custom import init_groups
+>>> init_groups()
+```
+
+### Генерация SECRET_KEY:
+```bash
+python generate_env.py > .env
+```
+
+---
+
+## ✨ Ключевые URL
+
+**Локальный сервер:**
+- Главная: http://localhost:8000/
+- Админка: http://localhost:8000/admin/
+- Логин/пароль: admin/admin
+
+**GitHub:**
+- Репозиторий: https://github.com/beligel/dobroslawa
+
+---
+
+## 🎨 Особенности реализации
+
+### Мультиязычность (django-modeltranslation):
+- Поля моделей имеют суффиксы _en, _zh-hans
+- LANGUAGES в settings: ru, en, zh-hans
+- LocaleMiddleware включён
+- LOCALE_PATHS = ['locale/']
+
+### Booking Widget:
+- Форма на главной с датами и гостями
+- JavaScript: авто-установка дат (завтра/послезавтра)
+- Валидация: check_out > check_in
+- Проверка пересечения бронирований
+
+### Аналитика в админке:
+- Chart.js подключается через CDN
+- 3 типа графиков: bar, line, doughnut
+- Данные за 6 месяцев
+- Статистика по статусам бронирований
+
+---
+
+## ⚠️ Известные проблемы и решения
+
+### Проблема: modeltranslation конфликт
+**Решение:** translation.py файлы удалены, используем стандартный подход
+
+### Проблема: пути в админке
+**Решение:** Используем абсолютные пути `/admin/` вместо относительных
+
+### Проблема: DEBUG на продакшене
+**Решение:** Создан settings_secure.py с переменными окружениями
+
+---
+
+## 📞 Контакты для восстановления
+
+**GitHub аккаунт:**
+- Username: beligel
+- Email: che.xvost@gmail.com
+
+**Важные пароли/токены:**
+- GitHub Personal Access Token: `[REMOVED - see GitHub Settings]`
+- Django admin: admin/admin
+- DB: SQLite (локальная)
+
+---
+
+## 📝 Необходимые доработки (TODO)
+
+- [ ] Удалить DEBUG=True в продакшене
+- [ ] Настроить PostgreSQL вместо SQLite
+- [ ] Настроить HTTPS (Let's Encrypt)
+- [ ] Настройка почты (SMTP для уведомлений)
+- [ ] Backup стратегия для БД
+- [ ] Тесты (pytest)
+- [ ] Docker контейнеризация
+- [ ] CI/CD пайплайн
+
+---
+
+## ⚙️ Зависимости (requirements.txt)
+
+```
+Django>=4.2,<5.0
+django-modeltranslation>=0.18
+Pillow>=10.0
+gunicorn>=21.0
+python-dotenv>=1.0  # для .env файлов
+```
+
+---
+
+## 🔗 Связанные ресурсы
+
+- Оригинальный дизайн: cosmos-hotel.net (брался за основу)
+- Django docs: https://docs.djangoproject.com/en/4.2/
+- Admin template customization: https://docs.djangoproject.com/en/4.2/ref/contrib/admin/
+
+---
+
+**Файл создан:** 2026-04-21 21:53 UTC
+**Обновлен:** 2026-04-21 23:10 UTC
+**Версия контекста:** 1.1
