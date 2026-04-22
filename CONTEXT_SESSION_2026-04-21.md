@@ -562,3 +562,28 @@ python manage.py migrate
 - EN: "Check-in" ✅
 - ZH: "入住" ✅
 **Git:** Commit 4d21c17
+
+
+### [2026-04-22 16:50 UTC] - Add House Rules page
+**Действие:** Added
+**Описание:**
+1. Создана страница "Порядок проживания" (RU) / "House Rules" (EN) / "住宿规定" (ZH)
+2. Контент включает: режим работы, оплату, заселение/выселение, посетителей,
+   что включено, обязанности гостей, запреты, пожарную безопасность, действия при пожаре
+3. Создан шаблон pages/page_detail.html с красивым оформлением
+4. Добавлена ссылка в навигацию base.html
+5. Обновлен static_trans.py переводами:
+   - About → О нас / 关于我们
+   - Contacts → Контакты / 联系我们  
+   - House Rules → Порядок проживания / 住宿规定
+**Файлы:**
+- Добавлен: `templates/pages/page_detail.html`
+- Изменён: `templates/base.html` (навигация)
+- Изменён: `pages/templatetags/static_trans.py` (переводы)
+- Скрипт: `add_house_rules.py` (создан и удалён)
+**URL:** /page/house-rules/
+**Проверка:**
+- RU: Режим работы / Оплата / Заселение ✅
+- EN: Operating Hours / Payment / Check-in ✅
+- ZH: 营业时间 / 付款方式 / 入住 ✅
+**Git:** Commit 0893c62
