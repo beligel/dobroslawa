@@ -88,6 +88,7 @@
             
             <ul class="nav-links">
                 <li><a href="{% url 'pages:about' %}"{% if request.resolver_match.url_name == 'about' %} class="active"{% endif %}>{% static_trans 'About' %}</a></li>
+                <li><a href="{% url 'pages:page_detail' 'house-rules' %}">{% static_trans 'House Rules' %}</a></li>
                 <li><a href="{% url 'rooms:room_list' %}"{% if request.resolver_match.url_name == 'room_list' %} class="active"{% endif %}>{% static_trans 'Rooms' %}</a></li>
                 <li><a href="{% url 'pages:contacts' %}"{% if request.resolver_match.url_name == 'contacts' %} class="active"{% endif %}>{% static_trans 'Contacts' %}</a></li>
                 <li class="lang-switcher">

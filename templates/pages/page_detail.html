@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load i18n static translation_extras static_trans %}
+
+{% block title %}{% get_trans_field page "title" %} | Dobroslawa{% endblock %}
+
+{% block meta_description %}{% get_trans_field page "meta_description" %}{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="page-hero">
+    <div class="page-hero-content">
+        <h1 class="page-title">{% get_trans_field page "title" %}</h1>
+    </div>
+</section>
+
+<!-- Content -->
+<section class="section">
+    <div class="container">
+        <div class="page-content rich-text">
+            {% get_trans_field page "content" as page_content %}
+            {{ page_content|safe }}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .page-hero {
+        background: var(--gradient-primary);
+        color: white;
+        padding: 8rem 0 4rem;
+        text-align: center;
+    }
+    .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+    .rich-text {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .rich-text h2 {
+        font-size: 1.5rem;
+        color: var(--color-primary);
+        margin: 2rem 0 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--color-primary);
+    }
+    .rich-text ul, .rich-text ol {
+        margin: 1rem 0;
+        padding-left: 2rem;
+    }
+    .rich-text li {
+        margin-bottom: 0.5rem;
+        line-height: 1.6;
+    }
+    .rich-text p {
+        margin: 1rem 0;
+        line-height: 1.6;
+    }
+    @media (max-width: 768px) {
+        .page-title {
+            font-size: 1.75rem;
+        }
+    }
+</style>
+{% endblock %}

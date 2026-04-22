@@ -32,6 +32,9 @@ STATIC_TRANSLATIONS = {
         'Ready to book your stay?': 'Готовы забронировать?',
         'Contact us now and get the best price guarantee': 'Свяжитесь с нами и получите гарантию лучшей цены',
         'Book Online': 'Забронировать',
+        'About': 'О нас',
+        'Contacts': 'Контакты',
+        'House Rules': 'Порядок проживания',
     },
     'zh-hans': {
         'Welcome to Dobroslawa': '欢迎来到多布罗斯拉维亚',
@@ -60,6 +63,9 @@ STATIC_TRANSLATIONS = {
         'Ready to book your stay?': '准备好预订您的住宿了吗？',
         'Contact us now and get the best price guarantee': '立即联系我们，获取最优惠价格保证',
         'Book Online': '在线预订',
+        'About': '关于我们',
+        'Contacts': '联系我们',
+        'House Rules': '住宿规定',
     }
 }
 
