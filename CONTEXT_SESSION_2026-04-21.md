@@ -644,3 +644,15 @@ python manage.py migrate
 - ZH: 我们的客房 / 标准间 / 舒适间 ✅
 
 **Git:** Commit a35c311
+
+
+### [2026-04-22 18:40 UTC] - Fix contacts.html TemplateSyntaxError
+**Действие:** Fixed
+**Проблема:** 
+- contacts.html: TemplateSyntaxError at line 4
+- static_trans использовался без {% load static_trans %}
+**Решение:**
+- Добавлен static_trans в тег {% load %} в contacts.html
+**Файлы:**
+- `templates/pages/contacts.html` - добавлен static_trans
+**Git:** Commit ef981f8
