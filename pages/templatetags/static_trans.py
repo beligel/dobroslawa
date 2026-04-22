@@ -35,6 +35,7 @@ STATIC_TRANSLATIONS = {
         'About': 'О нас',
         'Contacts': 'Контакты',
         'House Rules': 'Порядок проживания',
+        'Everything you need to know for a comfortable stay': 'Всё, что нужно знать для комфортного проживания',
     },
     'zh-hans': {
         'Welcome to Dobroslawa': '欢迎来到多布罗斯拉维亚',
@@ -66,6 +67,7 @@ STATIC_TRANSLATIONS = {
         'About': '关于我们',
         'Contacts': '联系我们',
         'House Rules': '住宿规定',
+        'Everything you need to know for a comfortable stay': '舒适住宿须知',
     }
 }
 

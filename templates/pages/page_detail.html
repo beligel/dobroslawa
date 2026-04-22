@@ -6,64 +6,282 @@
 {% block meta_description %}{% get_trans_field page "meta_description" %}{% endblock %}
 
 {% block content %}
-<!-- Hero -->
-<section class="page-hero">
-    <div class="page-hero-content">
-        <h1 class="page-title">{% get_trans_field page "title" %}</h1>
+<!-- Hero Section -->
+<section class="rules-hero">
+    <div class="rules-hero-content">
+        <div class="rules-icon">📋</div>
+        <h1 class="rules-title">{% get_trans_field page "title" %}</h1>
+        <p class="rules-subtitle">{% static_trans 'Everything you need to know for a comfortable stay' %}</p>
     </div>
 </section>
 
-<!-- Content -->
-<section class="section">
-    <div class="container">
-        <div class="page-content rich-text">
-            {% get_trans_field page "content" as page_content %}
-            {{ page_content|safe }}
-        </div>
+<!-- Rules Content -->
+<section class="rules-section">
+    <div class="rules-container">
+        {% get_trans_field page "content" as page_content %}
+        {{ page_content|safe }}
     </div>
 </section>
 {% endblock %}
 
 {% block extra_css %}
 <style>
-    .page-hero {
-        background: var(--gradient-primary);
+    /* ===== HERO SECTION ===== */
+    .rules-hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
         color: white;
-        padding: 8rem 0 4rem;
+        padding: 6rem 1rem 4rem;
         text-align: center;
+        position: relative;
+        overflow: hidden;
     }
-    .page-title {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
+    
+    .rules-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255,255,255,0.08);
+        background-image: 
+            radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
     }
-    .rich-text {
+    
+    .rules-hero-content {
+        position: relative;
+        z-index: 1;
         max-width: 800px;
         margin: 0 auto;
     }
-    .rich-text h2 {
+    
+    .rules-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    .rules-title {
+        font-size: 2.75rem;
+        font-weight: 800;
+        margin-bottom: 0.75rem;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    
+    .rules-subtitle {
+        font-size: 1.25rem;
+        opacity: 0.95;
+        font-weight: 300;
+    }
+    
+    /* ===== CONTENT SECTION ===== */
+    .rules-section {
+        background: linear-gradient(180deg, #f8faff 0%, #ffffff 100%);
+        padding: 4rem 1rem;
+    }
+    
+    .rules-container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    
+    /* ===== HEADERS WITH ICONS ===== */
+    .rules-container h2 {
         font-size: 1.5rem;
-        color: var(--color-primary);
-        margin: 2rem 0 1rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid var(--color-primary);
+        color: #2d3748;
+        margin: 3rem 0 1.5rem;
+        padding: 1.25rem 1.5rem;
+        background: white;
+        border-radius: 12px;
+        border-left: 5px solid #667eea;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-weight: 700;
+        transition: all 0.3s ease;
     }
-    .rich-text ul, .rich-text ol {
-        margin: 1rem 0;
-        padding-left: 2rem;
+    
+    .rules-container h2:hover {
+        transform: translateX(5px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.12);
     }
-    .rich-text li {
-        margin-bottom: 0.5rem;
-        line-height: 1.6;
+    
+    .rules-container h2:first-child {
+        margin-top: 0;
     }
-    .rich-text p {
-        margin: 1rem 0;
-        line-height: 1.6;
+    
+    /* ===== LIST ITEMS AS CARDS ===== */
+    .rules-container ul,
+    .rules-container ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
     }
+    
+    .rules-container li {
+        margin-bottom: 1rem;
+        padding: 1.25rem 1.5rem;
+        background: white;
+        border-radius: 12px;
+        border-left: 4px solid #48bb78;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        transition: all 0.3s ease;
+        position: relative;
+        padding-left: 3rem;
+    }
+    
+    .rules-container li::before {
+        content: '✓';
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 24px;
+        height: 24px;
+        background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 700;
+        box-shadow: 0 2px 6px rgba(72, 187, 120, 0.4);
+    }
+    
+    .rules-container li:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+    }
+    
+    /* ===== NUMBERED LISTS ===== */
+    .rules-container ol {
+        counter-reset: rule-counter;
+    }
+    
+    .rules-container ol li {
+        counter-increment: rule-counter;
+        border-left-color: #ed8936;
+    }
+    
+    .rules-container ol li::before {
+        content: counter(rule-counter);
+        background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+        box-shadow: 0 2px 6px rgba(237, 137, 54, 0.4);
+    }
+    
+    /* ===== PARAGRAPHS AS HIGHLIGHT BOXES ===== */
+    .rules-container p {
+        margin: 1.5rem 0;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
+        border-radius: 12px;
+        border-left: 4px solid #4299e1;
+        color: #2c5282;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        box-shadow: 0 2px 8px rgba(66, 153, 225, 0.1);
+    }
+    
+    .rules-container p strong {
+        color: #c53030;
+        font-weight: 700;
+    }
+    
+    /* ===== WARNING/IMPORTANT SECTIONS ===== */
+    /* Запреты - красные */
+    .rules-container h2:has(+ ul) {
+        border-left-color: #f56565;
+    }
+    
+    /* Пожарная безопасность - оранжевые */
+    .rules-container > *:nth-of-type(17) + h2 + ol li,
+    .rules-container > *:nth-of-type(18) + h2 + ol li {
+        border-left-color: #ed8936;
+    }
+    
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-        .page-title {
-            font-size: 1.75rem;
+        .rules-title {
+            font-size: 2rem;
+        }
+        
+        .rules-subtitle {
+            font-size: 1rem;
+        }
+        
+        .rules-icon {
+            font-size: 3rem;
+        }
+        
+        .rules-container h2 {
+            font-size: 1.25rem;
+            padding: 1rem;
+        }
+        
+        .rules-container li {
+            padding: 1rem 1rem 1rem 2.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .rules-container li::before {
+            left: 0.75rem;
+            width: 20px;
+            height: 20px;
+            font-size: 10px;
         }
     }
 </style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Add icons to headings based on content
+    document.addEventListener('DOMContentLoaded', function() {
+        const headings = document.querySelectorAll('.rules-container h2');
+        const icons = {
+            'Режим': '⏰',
+            'Operating': '⏰',
+            '营业': '⏰',
+            'Оплат': '💳',
+            'Payment': '💳',
+            '付款': '💳',
+            'Заселен': '🏨',
+            'Check': '🏨',
+            '入住': '🏨',
+            'Посетит': '👥',
+            'Visitor': '👥',
+            '访客': '👥',
+            'Включено': '✅',
+            'Included': '✅',
+            '包含': '✅',
+            'Обязанност': '📝',
+            'Obligation': '📝',
+            '义务': '📝',
+            'Запрещ': '⛔',
+            'Prohibit': '⛔',
+            '禁止': '⛔',
+            'Пожар': '🔥',
+            'Fire': '🔥',
+            '消防': '🔥'
+        };
+        
+        headings.forEach(heading => {
+            const text = heading.textContent.toLowerCase();
+            for (const key in icons) {
+                if (text.includes(key.toLowerCase())) {
+                    heading.insertAdjacentHTML('afterbegin', `<span>${icons[key]} </span>`);
+                    break;
+                }
+            }
+        });
+    });
+</script>
 {% endblock %}
