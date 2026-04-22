@@ -613,3 +613,34 @@ python manage.py migrate
 - ⛔ Запрещается
 - 🔥 Пожарная безопасность
 **Git:** Commit 2e12fc9
+
+
+### [2026-04-22 18:35 UTC] - Fix Room List page (TemplateDoesNotExist)
+**Действие:** Fixed
+**Проблема:** 
+- При переходе на /rooms/ ошибка TemplateDoesNotExist: rooms/room_list.html
+- Шаблон не существовал в templates/rooms/
+
+**Решение:**
+1. Создан templates/rooms/room_list.html с красивым дизайном
+2. Добавлена героическая секция с градиентом и анимацией
+3. Карточки номеров с фото, характеристиками, удобствами и ценами
+4. Адаптивная сетка (grid)
+5. Добавлены переводы для страницы номеров
+6. Исправлена синтаксическая ошибка в static_trans.py
+
+**Файлы:**
+- `templates/rooms/room_list.html` - новый (381 lines)
+- `pages/templatetags/static_trans.py` - исправлены ошибки, добавлены переводы
+
+**Новые переводы:**
+- Choose the perfect room for your stay
+- No rooms available at the moment
+- Capacity, Area, Air conditioning
+
+**Проверка:**
+- RU: Наши номера / Стандарт / Комфорт ✅
+- EN: Our Rooms / Standard / Comfort ✅
+- ZH: 我们的客房 / 标准间 / 舒适间 ✅
+
+**Git:** Commit a35c311
