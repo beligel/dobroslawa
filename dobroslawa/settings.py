@@ -31,6 +31,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'dobroslawa.middleware.ForceRussianLanguageMiddleware',  # Force Russian as default (after SessionMiddleware)
     'django.middleware.locale.LocaleMiddleware',  # Мультиязычность
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
